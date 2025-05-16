@@ -9,23 +9,16 @@ Este repositório refere-se ao **Trabalho Integrador** das disciplinas de **Prog
 
 O código do sistema está estruturado da seguinte forma:
 
-/SIGARP
+- ./SIGARP/
+  - docs/ *Documentação do projeto*
+  - backend/ *Código backend*
+  - frontend/ *Código frontend*
+    - css/ *Código em CSS*
+    - html/ *Código em HTML*
+    - img/ *Repositório de Imagens*
+    - js/ *Código em JavaScript*
+  - README.md *Descrição Repositório Github* 
 
-├── docs/ *Documentação do projeto*
-│ 
-│ ├── backend/ *Código backend*
-│ │ 
-│ └── frontend/ *Código frontend*
-│     │   
-│     ├── css/ *Código em CSS*
-│     │     
-│     ├── html *Código em HTML*
-│     │     
-│     ├── img *Repositório de Imagens*
-│     │     
-│     └── js *Código em JavaScript*
-│ 
-└── README.md *Descrição Repositório Github*
 
 
 ### docs/
