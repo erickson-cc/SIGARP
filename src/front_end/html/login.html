@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+ <link href="../css/style.css" rel="stylesheet" /> 
+  
+
+</head>
+<body>
+    <div class = "login_container">
+        <h2>Entrar</h2>
+        <form> <!--Para enviar o formulario para o back é necessario addo name-->
+            <div class="input">
+                <!--ao clicar na palavra email irá direto para o campo(FOR=EMAIL) para colocar o email-->
+                <label for = "email">E-mail:</label>
+                <!--type = email, é validação se é um email mesmo, id é para o label saber pra onde ir-->
+                <!--name é o como será enviando para o back as infos, placeholder é a palavras dentro do campo e required é obrigatorio está com info para o envio-->
+                <input type="email", id = "email", name = "email", placeholder="Digite o seu email" required>
+        
+                
+            </div>
+            <div class = "input">   
+                <label for = "senha">Senha:</label>
+                <input type ="password", id = "senha", nbame = "senha", placeholder = "Digite a sua senha" required>
+            </div>
+            <button type = "submit" class="btn"> Entrar </button>
+        </form>
+        <form>  
+            <div class = "links_extras">
+                <p>Esqueceu a senha? <a href = "#" >link da pag </a></p>
+            </div>
+
+        </form>
+
+    </div>
+ 
+</body>
+</html>
