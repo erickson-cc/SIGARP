@@ -9,7 +9,7 @@ Este repositório refere-se ao **Trabalho Integrador** das disciplinas de **Prog
 
 O código do sistema está estruturado da seguinte forma:
 
-- ./SIGARP/
+- ./src/
   - docs/ *Documentação do projeto*
   - backend/ *Código backend*
   - frontend/ *Código frontend*
