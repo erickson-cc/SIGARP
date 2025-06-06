@@ -1,0 +1,120 @@
+input::-ms-reveal,
+      input::-ms-clear {
+        display: none;
+      }
+* {
+    box-sizing: border-box;
+    /*o navegador ajusta o conteúdo para caber dentro do tamanho que você informar.*/
+    margin: 0;
+    /*tira a borda e o padding, ;*/
+    padding: 0;
+
+}
+
+body {
+    background: linear-gradient(132deg, #05056E, #6774db);
+    height: 100vh;
+    /* 100% da altura da janela */
+    display: flex;
+    /*deixa alterar o local do item*/
+    justify-content: center;
+    /*alinha horizontalmente no centro*/
+    align-items: center;
+    /*alinha veticalmente no centro*/
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login_container {
+    background-color: white;
+    /*fundo branco*/
+    padding: 40px;
+    border-radius: 20px;
+    /*arredonda as bordas*/
+    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, 0.141);
+    /*sombra*/
+    width: 90%;
+    /* tamanho e tamanho maximo de 400px para n ocupar a tela inteira*/
+    max-width: 450px;
+    text-align: center;
+    /*alinha texto no meio*/
+
+}
+
+.login_container h2 {
+    margin-bottom: 30px;
+    color: black;
+}
+
+.input {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.input label {
+    display: block;
+    margin-bottom: 6px;
+    color: #555;
+    font-weight: bold;
+}
+
+.input input {
+    width: 100%;
+    padding: 10px;
+    padding-right: 35px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.input input:focus {
+    border-color: #4e54c8;
+    outline: none;
+    box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
+}
+
+.input i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(25%);
+    font-size: 20px;
+    color: #454f96c8;
+}
+
+.btn {
+    background: #4e54c8;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    /*hover*/
+    margin-top: 10px;
+
+}
+
+.btn:hover {
+    background: #26296b;
+    transform: scale(1.05);
+    /* width: 102%;
+    justify-content: center;*/
+}
+
+.links_extras {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.links_extras a {
+    color: #4e54c8;
+    text-decoration: none;
+    /*remove o sublinado*/
+}
+
+.links_extras a:hover {
+    text-decoration: underline;
+}
