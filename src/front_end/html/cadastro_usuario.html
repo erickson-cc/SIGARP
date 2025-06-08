@@ -6,41 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
-</head> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
 
 <body>
     <div class="container_menu">
+        <button id="toggle_menu" class="botao_menu">
+            <i class='bx bx-menu'></i>
+        </button>
         <aside class="menu_lateral">
-            <h2>MENU</h2>
+            <h2> MENU</h2>
+
             <div>
                 <nav>
                     <ul>
-                        <li><a href="#">Cadastrar Usuario </a></li>
-                        <li><a href="#">Cadastrar Item </a></li>
-                        <li><a href="#">Cadastrar Unidade </a></li>
-                        <li><a href="#">Cadastrar Licitação </a></li>
-                        <li><a href="#">Cadastrar Pedidos </a></li>
+                        <li> <a href="#"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
+                        <li> <a href="#"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
+                        <li> <a href="#"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="#"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
+                        <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
+                        <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
+
                     </ul>
                 </nav>
+
             </div>
         </aside>
-        <main>
-            <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
-            <section>
 
-                <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
-                    <!-- unidade, nome completo, função, matrícula, e-mail, nome de usuário e a senha Para enviar o formulario para o back é necessario addo name-->
+
+
+        <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
+        <section>
+
+            <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
+                <h2>CADASTRAR USUÁRIO</h2>
+
+                <div class="linha-campos">
                     <div class="input">
-                        <!--ao clicar na palavra email irá direto para o campo(FOR=EMAIL) para colocar o email-->
                         <label for="nome_usuario">Nome Completo:</label>
-                        <!--type = email, é validação se é um email mesmo, id é para o label saber pra onde ir-->
-                        <!--name é o como será enviando para o back as infos, placeholder é a palavras dentro do campo e required é obrigatorio está com info para o envio-->
-                        <input id="nome_usuario" , name="nome_usuario" , required>
+                        <input type="text" id="nome_usuario" name="nome_usuario" required>
                     </div>
-                    <div class=input>
-                        <label for="unidade_usuario">Escolha uma opção:</label>
-                        <!-- Se as oções foram completadas automaticamente será necesario alterar essa estrutura-->
-                        <select id="unidade_usuario" name="unidade_usuario" , required>
+                    <div class="input">
+                        <label for="funcao_usuario">Função:</label>
+                        <select id="funcao_usuario" name="funcao_usuario" required>
                             <option value="" disabled selected>Selecione</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Licitação">Licitação</option>
@@ -48,24 +57,33 @@
                         </select>
                     </div>
                     <div class="input">
-                        <label for="funcao_usuario">Função:</label>
-                        <input id="funcao_usuario" , name="funcao_usuario" , required>
+                        <label for="unidade_usuario">Unidade:</label>
+                        <input type="text" id="unidade_usuario" name="unidade_usuario" required>
                     </div>
+                </div>
+
+                <div class="linha-campos">
                     <div class="input">
                         <label for="email_usuario">Email:</label>
-                        <input type="email" , id="email_usuario" , name="email_usuario" , required>
+                        <input type="email" id="email_usuario" name="email_usuario" required>
                     </div>
                     <div class="input">
                         <label for="senha_usuario">Senha Padrão:</label>
                         <input type="password" id="senha_usuario" name="senha_usuario" value="senha123" readonly />
-                       <button type="button" onclick="mostrarSenha()">Mostrar Senha</button>*/
+                        <i class='bx bxs-show' id="toggleSenha"></i>
                     </div>
+                </div>
 
-                    <button type="submit" class="btn"> Entrar </button>
-                </form>
-            </section>
-        </main>
+
+                <div class="linha-campos">
+                    <button type="button" class="btn cancelar">CANCELAR</button>
+                    <button type="submit" class="btn">GRAVAR</button>
+                </div>
+            </form>
+        </section>
+
     </div>
+
     <script src="../js/script_cadastro_usuario.js"></script>
 
 </body>

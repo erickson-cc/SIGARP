@@ -4,11 +4,11 @@ document.getElementById("toggleSenha").addEventListener("click", function () {
 
   if (campoSenha.type === "password") {
     campoSenha.type = "text";  //muda para type="text" para mostrar a senha.
-    icone.classList.remove("bx-show"); //muda para o olho fechado
-    icone.classList.add("bx-hide");
+    icone.classList.remove("bxs-show"); //muda para o olho fechado
+    icone.classList.add("bxs-hide");
   } else {
     campoSenha.type = "password";    //muda para type="password" para esconder a senha.
-    icone.classList.remove("bx-hide"); //muda para o olho aberto
-    icone.classList.add("bx-show");
+    icone.classList.remove("bxs-hide"); //muda para o olho aberto
+    icone.classList.add("bxs-show");
   }
 });
