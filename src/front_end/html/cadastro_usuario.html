@@ -12,15 +12,18 @@
 
 <body>
     <div class="container_menu">
+        <!-- Botão para abrir/fechar o menu lateral -->
         <button id="toggle_menu" class="botao_menu">
             <i class='bx bx-menu'></i>
         </button>
+        <!-- Menu lateral fixo -->
         <aside class="menu_lateral">
             <h2> MENU</h2>
-
             <div>
+                <!-- Navegação principal -->
                 <nav>
                     <ul>
+                        <!-- Lista de opções do menu -->
                         <li> <a href="#"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
                         <li> <a href="#"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
                         <li> <a href="#"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
@@ -32,36 +35,51 @@
                 </nav>
 
             </div>
+            <!-- Área do usuário no menu lateral -->
+            <div class="usuario_menu">
+                <i class='bx bxs-user-circle'></i>
+                <span>Nome do Usuário</span>
+            </div>
+            <!-- Popup de confirmação para logout -->
+            <div id="popup" class="popup">
+                <p>Deseja sair?</p>
+                <button class="btn cancelar" onclick="logout()">Sair</button>
+                <button class="btn " onclick="closePopup()">Cancelar</button>
+            </div>
+
         </aside>
 
 
 
         <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
         <section>
-
+            <!-- Formulário para cadastro de usuário -->
             <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
                 <h2>CADASTRAR USUÁRIO</h2>
-
+                <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
                         <label for="nome_usuario">Nome Completo:</label>
                         <input type="text" id="nome_usuario" name="nome_usuario" required>
                     </div>
+
                     <div class="input">
                         <label for="funcao_usuario">Função:</label>
                         <select id="funcao_usuario" name="funcao_usuario" required>
+                            <!-- Dropdown obrigatório para seleção da função -->
                             <option value="" disabled selected>Selecione</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Licitação">Licitação</option>
                             <option value="Solicitante">Solicitante</option>
                         </select>
                     </div>
+
                     <div class="input">
                         <label for="unidade_usuario">Unidade:</label>
                         <input type="text" id="unidade_usuario" name="unidade_usuario" required>
                     </div>
                 </div>
-
+                <!-- linha de campos -->
                 <div class="linha-campos">
                     <div class="input">
                         <label for="email_usuario">Email:</label>
@@ -73,8 +91,7 @@
                         <i class='bx bxs-show' id="toggleSenha"></i>
                     </div>
                 </div>
-
-
+                <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
                     <button type="submit" class="btn">GRAVAR</button>
