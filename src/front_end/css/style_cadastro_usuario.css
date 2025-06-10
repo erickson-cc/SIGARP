@@ -1,22 +1,30 @@
 input::-ms-reveal,
 input::-ms-clear {
     display: none;
+    /* Remove ícones padrão do IE/Edge para mostrar/limpar campos de senha */
 }
 
 * {
     box-sizing: border-box;
+    /* Inclui padding e border no cálculo de largura/altura */
     margin: 0;
+    /*remove a margem e o padding padrão*/
     padding: 0;
 }
 
-html, body {
+html,
+body {
     height: 100%;
-    overflow-y: auto;
+    /* Garante altura total para html e body */
+    overflow-y: visible;
+    /* Permite rolagem vertical visível */
 }
 
 body {
     height: 100vh;
+    /* Altura total da viewport */
     display: flex;
+    /* Usado para layout flexível da página */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f0f0;
 }
@@ -37,15 +45,52 @@ body {
 }
 
 /***************************************************************************************************************************************/
+.usuario_menu {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    font-weight: bold;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white;
+    transition: background 0.3s;
+}
+
+.usuario_menu i {
+    font-size: 24px;
+}
+
+.popup {
+    /* Popup (modal) escondido por padrão */
+    display: none;
+    position: absolute;
+    top: 85%;
+    /*posicionamento na tela*/
+    left: 15%;
+
+    transform: translate(-50%, -50%);
+    /* Centraliza popup */
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border: 1px solid #ccc;
+    color: black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
 .menu_lateral {
     width: 250px;
+    /* Largura padrão */
     padding: 20px;
     height: 100vh;
+    /* Altura total da viewport */
+
     background: #0A1F63;
     color: white;
     transition: all 0.3s;
-    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, 0.141);
-
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.4);
 }
 
 .menu_lateral h2 {
@@ -56,8 +101,10 @@ body {
 
 .menu_lateral ul {
     list-style: none;
+    /* Remove marcadores */
     display: flex;
     flex-direction: column;
+    /* Itens em coluna */
     justify-content: flex-start;
 }
 
@@ -69,6 +116,8 @@ body {
     padding: 8px;
     display: flex;
     padding-left: 40px;
+    /* Espaço para ícone */
+
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -86,12 +135,14 @@ body {
 
 .menu_lateral.reduzido {
     width: 80px;
+    /* Largura menor */
     padding: 20px 10px;
     transition: all 0.3s;
 }
 
 .menu_lateral.reduzido h2 {
     display: none;
+    /* Esconde título */
 }
 
 .menu_lateral.reduzido ul {
@@ -100,6 +151,7 @@ body {
 
 .menu_lateral.reduzido ul li {
     margin: 6px 0;
+    /* Espaçamento menor */
 }
 
 .menu_lateral.reduzido ul li a {
@@ -109,6 +161,7 @@ body {
     width: 60px;
     height: 60px;
     font-size: 0;
+    /* Esconde texto */
     padding: 0;
     margin: 0 auto;
 }
@@ -116,14 +169,31 @@ body {
 .menu_lateral.reduzido ul li a i {
     position: static;
     font-size: 24px;
+    /* Ícones visíveis */
 }
 
 .menu_lateral.reduzido ul li a:hover {
     background-color: #263873;
     border-radius: 50%;
+    /* Deixa circular */
     width: 45px;
     height: 45px;
     margin-right: 10%;
+}
+
+.menu_lateral.reduzido .usuario_menu span {
+    display: none;
+    /* Esconde texto */
+}
+
+.menu_lateral.reduzido .usuario_menu {
+    justify-content: center;
+}
+
+.menu_lateral.reduzido .popup {
+    left: 9%;
+    /* Ajusta posição popup */
+
 }
 
 /***************************************************************************************************************************************/
@@ -147,6 +217,7 @@ i {
     left: 30px;
 }
 
+/* Botão para abrir menu lateral */
 .botao_menu {
     position: absolute;
     left: 25px;
@@ -156,6 +227,7 @@ i {
     font-size: 30px;
     color: white;
     z-index: 1000;
+    /* Sempre acima */
     cursor: pointer;
     justify-content: center;
     align-items: center;
@@ -166,6 +238,7 @@ i {
 /***************************************************************************************************************************************/
 .container_menu {
     display: flex;
+    /* Layout flexível horizontal */
     flex: 1;
     width: 100%;
     height: 100vh;
@@ -176,11 +249,15 @@ i {
 section {
     display: flex;
     justify-content: center;
+    /* Centraliza horizontalmente */
     align-items: flex-start;
+    /* Alinha ao topo */
+
     background-color: #f0f0f0;
     flex: 1;
     height: 100%;
     overflow-y: auto;
+    /* Rolagem vertical se necessário */
 }
 
 .form_cadastro {
@@ -195,8 +272,16 @@ section {
     padding: 80px;
     margin-top: 100px;
     height: calc(100vh - 100px);
+    /* Altura ajustada */
     overflow-y: auto;
     box-sizing: border-box;
+    box-shadow:
+        -4px 0 6px -2px rgba(0, 0, 0, 0.3),
+        /* sombra à esquerda */
+        4px 0 6px -2px rgba(0, 0, 0, 0.3),
+        /* sombra à direita */
+        0 -4px 6px -2px rgba(0, 0, 0, 0.3);
+    /* sombra em cima do */
 }
 
 .form_cadastro .input {
@@ -210,6 +295,7 @@ section {
     margin-bottom: 20px;
     text-align: left;
     position: relative;
+    /* Para posicionar ícones */
 }
 
 .input label {
@@ -221,8 +307,11 @@ section {
 
 .input input {
     width: 100%;
+    /* Ocupa toda largura disponível */
     padding: 10px;
     padding-right: 35px;
+    /* Espaço para ícone */
+
     border: 2px solid #ddd;
     border-radius: 10px;
     transition: 0.3s;
@@ -237,10 +326,12 @@ section {
 .linha-campos {
     display: flex;
     gap: 1rem;
+    /* Espaçamento entre inputs */
 }
 
 .linha-campos .input {
     flex: 1;
+    /* Cada input ocupa espaço igual */
 }
 
 /*******************************************************************************************************************/
@@ -280,6 +371,13 @@ select:hover {
     margin-right: 10px;
 }
 
+.popup .btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+
 .btn:hover {
     transform: scale(1.05);
 }
@@ -288,52 +386,78 @@ select:hover {
 /* RESPONSIVIDADE, vai ser usado? */
 
 @media (max-width: 1024px) {
-  .form_cadastro {
-    width: 90%;
-    padding: 60px 40px;
-  }
+    .form_cadastro {
+        width: 90%;
+        padding: 60px 40px;
+    }
 }
+
 @media (max-width: 768px) {
-  .menu_lateral {
-    width: 60px;
-    padding: 20px 10px;
-  }
+    .botao_menu {
+    left:1%;
 
-  .menu_lateral h2 {
-    display: none;
-  }
+    }
+    .menu_lateral .usuario_menu span {
+        display: none;
+        /* Esconde texto */
+    }
 
-  .menu_lateral ul {
-    padding-top: 40px;
-  }
+    .menu_lateral .usuario_menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        padding: 0;
+        font-size: 0;
+        
+    }
 
-  .menu_lateral a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    padding: 0;
-    font-size: 0;
-  }
+    .menu_lateral.popup {
+        left: 9%;
+        /* Ajusta posição popup */
 
-  .menu_lateral a i {
-    font-size: 24px;
-    margin: 0;
-    position: static;
-    transform: none;
-  }
+    }
 
-  .menu_lateral a span,
-  .menu_lateral a > *:not(i) {
-    display: none;
-  }
+    .menu_lateral {
+        width: 40px;
+        padding: 20px 10px;
+    }
+
+    .menu_lateral h2 {
+        display: none;
+    }
+
+    .menu_lateral ul {
+        padding-top: 40px;
+    }
+
+    .menu_lateral a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .menu_lateral a i {
+        font-size: 24px;
+        margin: 0;
+        position: static;
+        transform: none;
+    }
+
+    .menu_lateral a span,
+    .menu_lateral a>*:not(i) {
+        display: none;
+    }
 }
 
 
 @media (max-width: 480px) {
-  .form_cadastro {
-    padding: 30px 15px;
-  }
-  
-  
+    .form_cadastro {
+        padding: 30px 15px;
+    }
+
+
 }
