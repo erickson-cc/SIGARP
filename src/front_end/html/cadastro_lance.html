@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de itens</title>
+    <title>Cadastro de Lances Licitantes</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -28,7 +28,7 @@
                         <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
                         <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
                         <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
-                        <li> <a href="../html/cadastro_lance.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
+                        <li> <a href="../html/cadastro_lances.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
                         <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
                         <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
 
@@ -56,20 +56,32 @@
         <section>
             <!-- Formulário para cadastro de usuário -->
             <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
-                <h2>CADASTRAR ITEM</h2>
+                <h2>CADASTRAR LANCES LICITANTES</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="nuc_item">Codigo NUC:</label>
-                        <input type="text" id="nuc_item" name="nuc_item" class="input-curto" required>
+                        <label for="num_pregao">Número do Pregão:</label>
+                        <input type="text" id="num_pregao" name="num_pregao" required>
+                    </div>
+                    <div class="input">
+                        <label for="cnpj_fornecedor">CNPJ do Fornecedor:</label>
+                        <input type="text" id="cnpj_fornecedor" name="cnpj_fornecedor" class="input-curto" placeholder="00.000.000/0000-00" maxlength="18"required>
                     </div>
 
                 </div>
                 <!-- linha de campos -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="descricao_item">Descrição Item:</label>
+                        <label for="descricao_item">Item:</label>
                         <input type="text" id="descricao_item" name="descricao_item" required>
+                    </div>
+                    <div class="input">
+                        <label for="quantidade_item">Quantidade:</label>
+                        <input type="text" id="quantidade_item" name="quantidade_item" required>
+                    </div>
+                    <div class="input">
+                        <label for="valor_unit_item">Valor Unitario:</label>
+                        <input type="text" id="valor_unit_item" name="valor_unit_item" required>
                     </div>
 
                 </div>

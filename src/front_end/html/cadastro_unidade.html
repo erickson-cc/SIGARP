@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de itens</title>
+    <title>Cadastro de Unidade</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -56,20 +56,33 @@
         <section>
             <!-- Formulário para cadastro de usuário -->
             <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
-                <h2>CADASTRAR ITEM</h2>
+                <h2>CADASTRAR UNIDADE</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="nuc_item">Codigo NUC:</label>
-                        <input type="text" id="nuc_item" name="nuc_item" class="input-curto" required>
+                        <label for="nome_unidade">Nome da Unidade:</label>
+                        <input type="text" id="nome_unidade" name="nome_unidade"required>
                     </div>
+                    <div class="input">
+                        <label for="cod_unidade">Código da Unidade:</label>
+                        <input type="text" id="cod_unidade" name="cod_unidade" class="input-curto" required>
+                    </div>
+                    
 
                 </div>
                 <!-- linha de campos -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="descricao_item">Descrição Item:</label>
-                        <input type="text" id="descricao_item" name="descricao_item" required>
+                        <label for="nome_diretor_unidade">Nome do Diretor:</label>
+                        <input type="text" id="nome_diretor_unidade" name="nome_diretor_unidade" required>
+                    </div>
+                    <div class="input">
+                        <label for="telefone_unidade">Telefone da Unidade:</label>
+                        <input type="text" id="telefone_unidade" name="telefone_unidade" required>
+                    </div>
+                    <div class="input">
+                        <label for="endereço_unidade">Endereço da Unidade:</label>
+                        <input type="text" id="endereço_unidade" name="endereço_unidade" required>
                     </div>
 
                 </div>

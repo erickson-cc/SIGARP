@@ -303,6 +303,7 @@ section {
     margin-bottom: 20px;
     text-align: left;
     position: relative;
+    
     /* Para posicionar ícones */
 }
 
@@ -323,6 +324,7 @@ section {
     border: 2px solid #ddd;
     border-radius: 10px;
     transition: 0.3s;
+    
 }
 
 .input input:focus {

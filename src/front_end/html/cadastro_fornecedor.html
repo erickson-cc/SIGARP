@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de itens</title>
+    <title>Cadastro de Fornecedor</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -56,22 +56,44 @@
         <section>
             <!-- Formulário para cadastro de usuário -->
             <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
-                <h2>CADASTRAR ITEM</h2>
+                <h2>CADASTRAR FORNECEDOR</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="nuc_item">Codigo NUC:</label>
-                        <input type="text" id="nuc_item" name="nuc_item" class="input-curto" required>
+                        <label for="nome_fornecedor">Nome do Fornecedor:</label>
+                        <input type="text" id="nome_fornecedor" name="nome_fornecedor" required>
+                    </div>
+                    <div class="input">
+                        <label for="cnpj_fornecedor">CNPJ:</label>
+                        <input type="text" id="cnpj_fornecedor" name="cnpj_fornecedor" class="input-curto" placeholder="00.000.000/0000-00" maxlength="18"required>
                     </div>
 
                 </div>
                 <!-- linha de campos -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="descricao_item">Descrição Item:</label>
-                        <input type="text" id="descricao_item" name="descricao_item" required>
+                        <label for="nome_representante_fornecedor">Nome do Representante:</label>
+                        <input type="text" id="nome_representante_fornecedor" name="nome_representante_fornecedor" required>
+                    </div>
+                    <div class="input">
+                        <label for="cpf_representante_fornecedor">CPF do Representante:</label>
+                        <input type="text" id="cpf_representante_fornecedor" name="cpf_representante_fornecedor" placeholder="000.000.000-00" maxlength="14" required>
+                    </div>
+                    <div class="input">
+                        <label for="rg_representante_fornecedor">RG do Representante:</label>
+                        <input type="text" id="rg_representante_fornecedor" name="rg_representante_fornecedor" required>
                     </div>
 
+                </div>
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="endereço_fornecedor">Endereço do Fornecedor:</label>
+                        <input type="text" id="endereço_fornecedor" name="endereço_fornecedor" required>
+                    </div>
+                    <div class="input">
+                        <label for="cep_fornecedor">CEP do Fornecedor:</label>
+                        <input type="text" id="cep_fornecedor" name="cep_fornecedor" placeholder="00.000-000" maxlength="7" required>
+                    </div>
                 </div>
                 <!-- Linha com botões -->
                 <div class="linha-campos">
