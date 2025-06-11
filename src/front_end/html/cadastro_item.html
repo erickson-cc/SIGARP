@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Cadastro de itens</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -55,41 +55,22 @@
         <section>
             <!-- Formulário para cadastro de usuário -->
             <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
-                <h2>CADASTRAR USUÁRIO</h2>
+                <h2>CADASTRAR ITEM</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="nome_usuario">Nome Completo:</label>
-                        <input type="text" id="nome_usuario" name="nome_usuario" required>
+                        <label for="nuc_item">Codigo NUC:</label>
+                        <input type="text" id="nuc_item" name="nuc_item" class="input-curto" required>
                     </div>
 
-                    <div class="input">
-                        <label for="funcao_usuario">Função:</label>
-                        <select id="funcao_usuario" name="funcao_usuario" required>
-                            <!-- Dropdown obrigatório para seleção da função -->
-                            <option value="" disabled selected>Selecione</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Licitação">Licitação</option>
-                            <option value="Solicitante">Solicitante</option>
-                        </select>
-                    </div>
-
-                    <div class="input">
-                        <label for="unidade_usuario">Unidade:</label>
-                        <input type="text" id="unidade_usuario" name="unidade_usuario" required>
-                    </div>
                 </div>
                 <!-- linha de campos -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="email_usuario">Email:</label>
-                        <input type="email" id="email_usuario" name="email_usuario" required>
+                        <label for="descricao_item">Descrição Item:</label>
+                        <input type="text" id="descricao_item" name="descricao_item" required>
                     </div>
-                    <div class="input">
-                        <label for="senha_usuario">Senha Padrão:</label>
-                        <input type="password" id="senha_usuario" name="senha_usuario" value="senha123" readonly />
-                        <i class='bx bxs-show' id="toggleSenha"></i>
-                    </div>
+
                 </div>
                 <!-- Linha com botões -->
                 <div class="linha-campos">
@@ -101,7 +82,7 @@
 
     </div>
 
-    <script src="../js/script_cadastro_usuario.js"></script>
+    <script src="../js/script_cadastro_item.js"></script>
 
 </body>
 

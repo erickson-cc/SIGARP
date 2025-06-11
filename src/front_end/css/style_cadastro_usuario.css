@@ -91,12 +91,14 @@ body {
     color: white;
     transition: all 0.3s;
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.4);
+
 }
 
 .menu_lateral h2 {
     margin-top: 20px;
     margin-bottom: 40px;
-    padding-left: 35px;
+    padding-left: 13px;
+
 }
 
 .menu_lateral ul {
@@ -141,12 +143,13 @@ body {
 }
 
 .menu_lateral.reduzido h2 {
-    display: none;
-    /* Esconde título */
+    /*display: none;
+     Esconde título */
+    font-size: 0;
 }
 
 .menu_lateral.reduzido ul {
-    padding-top: 80px;
+    /*padding-top: 80px;*/
 }
 
 .menu_lateral.reduzido ul li {
@@ -196,6 +199,10 @@ body {
 
 }
 
+.menu_lateral.reduzido .botao_menu {
+    transition: all 0.3s;
+}
+
 /***************************************************************************************************************************************/
 i {
     font-size: 25px;
@@ -219,18 +226,19 @@ i {
 
 /* Botão para abrir menu lateral */
 .botao_menu {
-    position: absolute;
-    left: 25px;
-    top: 41px;
+    /*position: absolute;*/
+    left: 3%;
     background: none;
     border: none;
     font-size: 30px;
     color: white;
     z-index: 1000;
+    padding-right: 3px;
     /* Sempre acima */
     cursor: pointer;
-    justify-content: center;
-    align-items: center;
+    /*justify-content: center;
+    align-items: center;*/
+    transform: translateY(5%);
 }
 
 
@@ -323,6 +331,11 @@ section {
     box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
 }
 
+.input-curto {
+    max-width: 200px;
+    width: 100%;
+}
+
 .linha-campos {
     display: flex;
     gap: 1rem;
@@ -394,9 +407,11 @@ select:hover {
 
 @media (max-width: 768px) {
     .botao_menu {
-    left:1%;
+
+        left: 1px;
 
     }
+
     .menu_lateral .usuario_menu span {
         display: none;
         /* Esconde texto */
@@ -409,7 +424,7 @@ select:hover {
         height: 50px;
         padding: 0;
         font-size: 0;
-        
+
     }
 
     .menu_lateral.popup {
@@ -424,12 +439,18 @@ select:hover {
     }
 
     .menu_lateral h2 {
-        display: none;
+        font-size: 0px;
+        padding-left: 0px;
     }
 
-    .menu_lateral ul {
-        padding-top: 40px;
+    .menu_lateral.botao_menu {
+        display: none;
+        margin: 0;
+        position: static;
+        transform: none;
+
     }
+
 
     .menu_lateral a {
         display: flex;
