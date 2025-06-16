@@ -1,5 +1,5 @@
 # SIGARP - Sistema de Gerenciamento de Atas de Registro de Preços
-Autores: [Aysha Thayna](https://github.com/Ayshathayna) (Mat: 20230002943), [Erickson Muller](https://github.com/erickson-cc) (Mat: 20230001178)e [Thais Zanella](https://github.com/thaiszanella) (Mat: 20230000958)
+Autores: [Aysha Thayna](https://github.com/Ayshathayna) (Mat: 20230002943), [Erickson Muller](https://github.com/erickson-cc) (Mat: 20230001178) e [Thais Zanella](https://github.com/thaiszanella) (Mat: 20230000958)
 
 ## Descrição
 
@@ -12,10 +12,10 @@ O código do sistema está estruturado da seguinte forma:
 - ./src/
   - docs/ *Documentação do projeto*
     - diagramas/
-        - Modelo Conceitual construído na ferramenta brModelo (https://app.brmodeloweb.com/#!/publicview/6849d5d55f7c40653b62241e)
+        - **Modelo Conceitual construído na ferramenta brModelo (https://app.brmodeloweb.com/#!/publicview/6849d5d55f7c40653b62241e)**
     - glossario/
     - requisitos/
-        - Documento de Elicitação de Requistitos
+        - **Documento de Elicitação de Requistitos**
   - backend/ *Código backend*
   - frontend/ *Código frontend*
     - css/ *Código em CSS*
