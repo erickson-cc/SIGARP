@@ -24,11 +24,16 @@
                 <nav>
                     <ul>
                         <!-- Lista de opções do menu -->
-                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Unidade </a></li>
-                        <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
-                        <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
-                        <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
-                        <li> <a href="../html/cadastro_lance.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
+                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bx-home icone_input'></i>Cadastrar
+                                Unidade </a></li>
+                        <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar
+                                Usuario </a></li>
+                        <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item
+                            </a></li>
+                        <li> <a href="../html/cadastro_fornecedor.html"><i
+                                    class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="../html/cadastro_lance.html"><i
+                                    class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
                         <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
                         <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
 
@@ -50,8 +55,6 @@
 
         </aside>
 
-
-
         <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
         <section>
             <!-- Formulário para cadastro de usuário -->
@@ -61,13 +64,12 @@
                 <div class="linha-campos">
                     <div class="input">
                         <label for="nome_unidade">Nome da Unidade:</label>
-                        <input type="text" id="nome_unidade" name="nome_unidade"required>
+                        <input type="text" id="nome_unidade" name="nome_unidade" required>
                     </div>
                     <div class="input">
                         <label for="cod_unidade">Código da Unidade:</label>
                         <input type="text" id="cod_unidade" name="cod_unidade" class="input-curto" required>
                     </div>
-                    
 
                 </div>
                 <!-- linha de campos -->
@@ -81,18 +83,51 @@
                         <input type="text" id="telefone_unidade" name="telefone_unidade" required>
                     </div>
                     <div class="input">
-                        <label for="endereço_unidade">Endereço da Unidade:</label>
-                        <input type="text" id="endereço_unidade" name="endereço_unidade" required>
+                        <label for="tipo_unidade">Tipo da Unidade:</label>
+                        <input type="text" id="tipo_unidade" name="tipo_unidade" required>
                     </div>
 
                 </div>
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="logadouro_unidade">Logadouro:</label>
+                        <input type="text" id="logadouro_unidade" name="logadouro_unidade" required>
+                    </div>
+                    <div class="input">
+                        <label for="bairro_unidade">Bairro:</label>
+                        <input type="text" id="bairro_unidade" name="bairro_unidade" required>
+                    </div>
+                    <div class="input">
+                        <label for="numero_end_unidade">Numero:</label>
+                        <input type="text" id="numero_end_unidade" name="numero_end_unidade" class="input-curtissimo"
+                            required>
+                    </div>
+                </div>
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="cidade_unidade">Cidade:</label>
+                        <input type="text" id="cidade_unidade" name="cidade_unidade" required>
+                    </div>
+                    <div class="input">
+                        <label for="cep_unidade">CEP:</label>
+                        <input type="text" id="cep_unidade" name="cep_unidade" class="input-curto"
+                            placeholder="00.000-000" maxlength="7" required>
+                    </div>
+
+                </div>
+
+
+
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
                     <button type="submit" class="btn">GRAVAR</button>
                 </div>
-            </form>
-        </section>
+                <div id="rowTable" class="row"></div>
+                
+
+    </form>
+    </section>
 
     </div>
 

@@ -240,7 +240,28 @@ i {
     align-items: center;*/
     transform: translateY(5%);
 }
+.add_lance{
+    font-size: 15px;
+    background:none;
+    border: none;
+    color: white;
+    z-index: 1000;
+    cursor: pointer;
 
+}
+.add{
+    display: flex;
+}
+.add a{
+    display: flex;
+    padding-right:3 px;
+}
+.icone_add{
+    position: absolute;
+    transform: translateY(-10%);
+    padding-right:3 px;
+
+}
 
 
 /***************************************************************************************************************************************/
@@ -337,6 +358,11 @@ section {
     max-width: 200px;
     width: 100%;
 }
+.input-curtissimo {
+    max-width: 100px;
+    width: 100%;
+}
+
 
 .linha-campos {
     display: flex;

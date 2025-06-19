@@ -24,7 +24,7 @@
                 <nav>
                     <ul>
                         <!-- Lista de opções do menu -->
-                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Unidade </a></li>
+                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bx-home icone_input'></i>Cadastrar Unidade </a></li>
                         <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
                         <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
                         <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
@@ -72,8 +72,8 @@
                 <!-- linha de campos -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="descricao_item">Item:</label>
-                        <input type="text" id="descricao_item" name="descricao_item" required>
+                        <label for="nome_item">Item:</label>
+                        <input type="text" id="nome_item" name="nome_item" required>
                     </div>
                     <div class="input">
                         <label for="quantidade_item">Quantidade:</label>
@@ -85,6 +85,17 @@
                     </div>
 
                 </div>
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="descricao_lance">Descrição do Lance:</label>
+                        <input type="text" id="descricao_lance" name="descricao_lance" required>
+                    </div>                   
+
+                </div>
+                <div class="add">
+                <button type="button" class="add_lance">
+                    <i class='bx bx-plus-circle icone_add'></i><a> Adicionar Lances</a>
+                </button></div>
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>

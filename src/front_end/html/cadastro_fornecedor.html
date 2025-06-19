@@ -24,11 +24,16 @@
                 <nav>
                     <ul>
                         <!-- Lista de opções do menu -->
-                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Unidade </a></li>
-                        <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
-                        <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
-                        <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
-                        <li> <a href="../html/cadastro_lance.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
+                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bx-home icone_input'></i>Cadastrar
+                                Unidade </a></li>
+                        <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar
+                                Usuario </a></li>
+                        <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item
+                            </a></li>
+                        <li> <a href="../html/cadastro_fornecedor.html"><i
+                                    class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="../html/cadastro_lance.html"><i
+                                    class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
                         <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
                         <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
 
@@ -65,7 +70,8 @@
                     </div>
                     <div class="input">
                         <label for="cnpj_fornecedor">CNPJ:</label>
-                        <input type="text" id="cnpj_fornecedor" name="cnpj_fornecedor" class="input-curto" placeholder="00.000.000/0000-00" maxlength="18"required>
+                        <input type="text" id="cnpj_fornecedor" name="cnpj_fornecedor" class="input-curto"
+                            placeholder="00.000.000/0000-00" maxlength="18" required>
                     </div>
 
                 </div>
@@ -73,11 +79,13 @@
                 <div class="linha-campos">
                     <div class="input">
                         <label for="nome_representante_fornecedor">Nome do Representante:</label>
-                        <input type="text" id="nome_representante_fornecedor" name="nome_representante_fornecedor" required>
+                        <input type="text" id="nome_representante_fornecedor" name="nome_representante_fornecedor"
+                            required>
                     </div>
                     <div class="input">
                         <label for="cpf_representante_fornecedor">CPF do Representante:</label>
-                        <input type="text" id="cpf_representante_fornecedor" name="cpf_representante_fornecedor" placeholder="000.000.000-00" maxlength="14" required>
+                        <input type="text" id="cpf_representante_fornecedor" name="cpf_representante_fornecedor"
+                            placeholder="000.000.000-00" maxlength="14" required>
                     </div>
                     <div class="input">
                         <label for="rg_representante_fornecedor">RG do Representante:</label>
@@ -87,14 +95,41 @@
                 </div>
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="endereço_fornecedor">Endereço do Fornecedor:</label>
-                        <input type="text" id="endereço_fornecedor" name="endereço_fornecedor" required>
+                        <label for="logadouro_fornecedor">Logadouro:</label>
+                        <input type="text" id="logadouro_fornecedor" name="logadouro_fornecedor" required>
                     </div>
-                    <div class="input">
-                        <label for="cep_fornecedor">CEP do Fornecedor:</label>
-                        <input type="text" id="cep_fornecedor" name="cep_fornecedor" placeholder="00.000-000" maxlength="7" required>
+                    <div class="linha-campos">
+                        <div class="input">
+                            <label for="bairro_fornecedor">Bairro:</label>
+                            <input type="text" id="bairro_fornecedor" name="bairro_fornecedor" required>
+                        </div>
+                        <div class="input">
+                        <label for="numero_end_fornecedor">Numero:</label>
+                        <input type="text" id="numero_end_fornecedor" name="numero_end_fornecedor"
+                            class="input-curtissimo" required>
+                    </div>
+                        
                     </div>
                 </div>
+
+                <div class="linha-campos">
+
+                    <div class="input">
+                            <label for="cep_fornecedor">CEP do Fornecedor:</label>
+                            <input type="text" id="cep_fornecedor" name="cep_fornecedor" placeholder="00.000-000"
+                                maxlength="7" required>
+                        </div>
+                    <div class="input">
+                        <label for="cidade_fornecedor">Cidade:</label>
+                        <input type="text" id="cidade_fornecedor" name="cidade_fornecedor" required>
+                    </div>
+                    <div class="input">
+                        <label for="uf_unidade">UF:</label>
+                        <input type="text" id="uf_unidade" name="uf_unidade" class="input-curtissimo" required>
+                    </div>
+
+                </div>
+
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
