@@ -240,29 +240,26 @@ i {
     align-items: center;*/
     transform: translateY(5%);
 }
-.add_lance{
+.add_lance, .add_item, .add_demanda {
     font-size: 15px;
-    background:none;
+    background: none;
     border: none;
     color: white;
     z-index: 1000;
     cursor: pointer;
-
-}
-.add{
-    display: flex;
-}
-.add a{
-    display: flex;
-    padding-right:3 px;
-}
-.icone_add{
-    position: absolute;
-    transform: translateY(-10%);
-    padding-right:3 px;
-
+    display: flex;          /* Faz o botão ser flexível para alinhar o ícone e o texto */
+    align-items: center;    /* Alinha o ícone e o texto verticalmente */
+    gap: 6px;               /* Espaço entre ícone e texto */
 }
 
+.icone_add {
+    font-size: 20px;        /* Tamanho do ícone */
+}
+
+/* Opcional: Se quiser mudar cor ao passar o mouse */
+.add_lance:hover ,.add_demanda:hover, .add_item:hover {
+    color: #00ffcc;         /* Exemplo: cor ciano ao hover */
+}
 
 /***************************************************************************************************************************************/
 .container_menu {
@@ -407,7 +404,7 @@ select:hover {
     transition: 0.3s;
 }
 
-.btn.cancelar {
+.btn.cancelar ,.sair{
     background-color: red;
     margin-right: 10px;
 }
@@ -423,6 +420,57 @@ select:hover {
     transform: scale(1.05);
 }
 
+
+.tabela_lances, .tabela_demanda,.tabela_itens  {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabela_lances th,.tabela_demanda th,.tabela_itens th,
+.tabela_lances td, .tabela_demanda td, .tabela_itens td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.tabela_lances th, .tabela_demanda th, .tabela_itens th{
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+
+.tabela_lances tr:hover, .tabela_demanda tr:hover, .tabela_itens tr:hover {
+    background-color: #e6f7ff4a;
+}
+
+/* Estilo para o botão de excluir */
+.btn-visualizar{
+    background-color: #4d82ff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.btn-excluir {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-excluir:hover {
+    background-color: #cc0000;
+}
+.btn-visualizar:hover {
+    background-color: #002ccc;
+}
 /********************************************************************************************************************/
 /* RESPONSIVIDADE, vai ser usado? */
 

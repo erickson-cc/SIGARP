@@ -6,7 +6,7 @@ document.getElementById("toggle_menu").addEventListener("click", function () {
 
   menu.classList.toggle("reduzido");// Alterna a classe "reduzido" para abrir/fechar o menu
 
- // Troca o ícone dependendo do estado do menu
+  // Troca o ícone dependendo do estado do menu
   if (menu.classList.contains("reduzido")) {
     icone.classList.remove("bx-menu");
     icone.classList.add("bx-menu-alt-right"); // ícone diferente para indicar recolhido
@@ -46,3 +46,16 @@ function showPopup() {
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
+
+document.querySelector('.sair').addEventListener('click', function () {
+  window.location.href = '../html/login.html';  // Redireciona para a tela de Licitação
+
+});
+
+document.querySelector('.cancelar').addEventListener('click', function () {
+  window.history.back();
+});
+document.querySelector('.btn-gravar').addEventListener('click', function () {
+  alert('Salvo com sucesso!');
+  window.history.back();
+});

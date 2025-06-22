@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário</title>
+    <title>Cadastro de Demanda</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -28,6 +28,7 @@
                         <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
                         <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
                         <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="../html/cadastro_demanda.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Demanda </a></li>
                         <li> <a href="../html/cadastro_licitacao.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
                         <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
                         <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
@@ -56,53 +57,61 @@
         <section>
             <!-- Formulário para cadastro de usuário -->
             <form class="form_cadastro" >
-                <h2>CADASTRAR USUÁRIO</h2>
+                <h2>CADASTRAR DEMANDA</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="nome_usuario">Nome Completo:</label>
-                        <input type="text" id="nome_usuario" name="nome_usuario" required>
+                        <label for="nome_item">Item: </label>
+                        <input type="text" id="nome_item" name="nome_item" required>
+                    </div>
+                     <div class="input">
+                        <label for="quantidade_item_demanda">Quantidade:</label>
+                        <input type="text" id="quantidade_item_demanda" name="quantidade_item_demanda"  class="input-curto" required>
                     </div>
 
-                    <div class="input">
-                        <label for="funcao_usuario">Função:</label>
-                        <select id="funcao_usuario" name="funcao_usuario" required>
-                            <!-- Dropdown obrigatório para seleção da função -->
-                            <option value="" disabled selected>Selecione</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Licitação">Licitação</option>
-                            <option value="Solicitante">Solicitante</option>
-                        </select>
-                    </div>
-
-                    <div class="input">
-                        <label for="unidade_usuario">Unidade:</label>
-                        <input type="text" id="unidade_usuario" name="unidade_usuario" required>
-                    </div>
                 </div>
                 <!-- linha de campos -->
                 <div class="linha-campos">
+                                       
                     <div class="input">
-                        <label for="email_usuario">Email:</label>
-                        <input type="email" id="email_usuario" name="email_usuario" required>
+                        <label for="descricao_demanda">Descrição:</label>
+                        <input type="text" id="descricao_demanda" name="descricdescricao_demandaao_lance">
                     </div>
-                    <div class="input">
-                        <label for="senha_usuario">Senha Padrão:</label>
-                        <input type="password" id="senha_usuario" name="senha_usuario" value="senha123" readonly />
-                        <i class='bx bxs-show' id="toggleSenha"></i>
-                    </div>
+
                 </div>
+                <div class="add">
+                    <button type="button" class="add_demanda">
+                        <i class='bx bx-plus-circle icone_add'></i>
+                        <span>Adicionar Demanda</span>
+                    </button>
+                </div>
+
+                <!-- Tabela de Lances -->
+                <h2>Demanda Cadastrada</h2>
+                <table id="tabela_demanda" class="tabela_demanda">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantidade</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas dos lances vão aparecer aqui via JS -->
+                    </tbody>
+
+                </table>
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
-                    <button type="submit" class="btn">GRAVAR</button>
+                    <button type="submit" class="btn btn-gravar">GRAVAR</button>
                 </div>
             </form>
         </section>
 
     </div>
 
-    <script src="../js/script_cadastro_usuario.js"></script>
+    <script src="../js/script_cadastro_demanda.js"></script>
 
 </body>
 

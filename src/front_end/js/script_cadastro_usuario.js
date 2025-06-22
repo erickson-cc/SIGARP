@@ -60,3 +60,17 @@ function showPopup() {
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
+document.querySelector('.sair').addEventListener('click', function () {
+        window.location.href = '../html/login.html';  // Redireciona para a tela de Licitação
+
+});
+
+/******************************************************************************************************************* */
+document.querySelector('.cancelar').addEventListener('click', function () {
+    window.history.back();
+});
+
+document.querySelector('.btn-gravar').addEventListener('click', function () {
+    alert('Salvo com sucesso!');
+window.history.back();
+});

@@ -28,7 +28,8 @@
                         <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
                         <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
                         <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
-                        <li> <a href="../html/cadastro_lances.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
+                        <li> <a href="../html/cadastro_demanda.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Demanda </a></li>
+                        <li> <a href="../html/cadastro_licitacao.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
                         <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
                         <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
 
@@ -44,7 +45,7 @@
             <!-- Popup de confirmação para logout -->
             <div id="popup" class="popup">
                 <p>Deseja sair?</p>
-                <button class="btn cancelar" onclick="logout()">Sair</button>
+                <button class="btn sair" onclick="logout()">Sair</button>
                 <button class="btn " onclick="closePopup()">Cancelar</button>
             </div>
 
@@ -55,8 +56,8 @@
         <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
         <section>
             <!-- Formulário para cadastro de usuário -->
-            <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
-                <h2>CADASTRAR LANCES LICITANTES</h2>
+            <form class="form_cadastro" >
+                <h2>CADASTRAR LICITAÇÕES > CADASTRAR LANCES LICITANTES</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
@@ -65,7 +66,8 @@
                     </div>
                     <div class="input">
                         <label for="cnpj_fornecedor">CNPJ do Fornecedor:</label>
-                        <input type="text" id="cnpj_fornecedor" name="cnpj_fornecedor" class="input-curto" placeholder="00.000.000/0000-00" maxlength="18"required>
+                        <input type="text" id="cnpj_fornecedor" name="cnpj_fornecedor" class="input-curto"
+                            placeholder="00.000.000/0000-00" maxlength="18" required>
                     </div>
 
                 </div>
@@ -88,25 +90,47 @@
                 <div class="linha-campos">
                     <div class="input">
                         <label for="descricao_lance">Descrição do Lance:</label>
-                        <input type="text" id="descricao_lance" name="descricao_lance" required>
-                    </div>                   
+                        <input type="text" id="descricao_lance" name="descricao_lance">
+                    </div>
 
                 </div>
                 <div class="add">
-                <button type="button" class="add_lance">
-                    <i class='bx bx-plus-circle icone_add'></i><a> Adicionar Lances</a>
-                </button></div>
+                    <button type="button" class="add_item">
+                        <i class='bx bx-plus-circle icone_add'></i>
+                        <span>Adicionar Item</span>
+                    </button>
+                </div>
+
+                <!-- Tabela de Lances -->
+                <h2>Lances Cadastrados</h2>
+                <table id="tabela_itens" class="tabela_itens">
+                    <thead>
+                        <tr>
+                            <th>Número do Pregão</th>
+                            <th>CNPJ</th>
+                            <th>Item</th>
+                            <th>Quantidade</th>
+                            <th>Valor Unitário</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas dos lances vão aparecer aqui via JS -->
+                    </tbody>
+
+                </table>
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
-                    <button type="submit" class="btn">GRAVAR</button>
+                    <button type="button" class="btn btn-gravar">GRAVAR</button>
                 </div>
             </form>
+
         </section>
 
     </div>
 
-    <script src="../js/script_cadastro_item.js"></script>
+    <script src="../js/script_cadastro_lance.js"></script>
 
 </body>
 
