@@ -1,0 +1,128 @@
+Table item {
+  nuc varchar(12) [pk]
+  nomeitem text
+}
+
+Table licitacao {
+  numerolic integer [pk]
+  anolic integer [pk]
+  descrlic varchar(60)
+}
+
+Table aquisicao {
+  fk_item_a varchar(12) [ref: > item.nuc]
+  fk_licita_nro integer [ref: > licitacao.numerolic]
+  fk_licita_ano integer [ref: > licitacao.anolic]
+}
+
+Table pertence {
+  fk_licita_nro integer [ref: > licitacao.numerolic]
+  fk_licita_ano integer [ref: > licitacao.anolic]
+  fk_item_p varchar(12) [ref: > item.nuc]
+}
+
+Table inclui {
+  quantidade_pedido integer
+  fk_pedido varchar(5) [ref: > pedido.codped]
+  fk_item_i varchar(12) [ref: > item.nuc]
+}
+
+Table pedido {
+  codped varchar(5) [pk]
+  fk_referente varchar(5) [ref: > ata_rp.codarp]
+  fk_user_slc varchar(5) [ref: > user_lct.codusrlic]
+}
+
+Table ata_rp {
+  codarp varchar(5) [pk]
+  fk_licitacao_nro integer [ref: > licitacao.numerolic]
+  fk_licitacao_ano integer [ref: > licitacao.anolic]
+}
+
+Table user_slc {
+  codusrslc varchar(5) [pk]
+  nomeusrslc varchar(35)
+  fk_unidade_lota varchar(5) [ref: > unidade.codunid]
+}
+
+Table oficio_pedido {
+  numpedofc integer [pk]
+  anopedofc integer [pk]
+  textpedofc text
+  fk_pedido varchar(5) [ref: > pedido.codped]
+}
+
+Table demanda {
+  coddem varchar(5) [pk]
+  quantidade_demanda integer
+  descricao_demanda text
+  fk_item_d varchar(12) [ref: > item.nuc]
+  fk_user_slc_d varchar(5) [ref: > user_slc.codusrslc]
+}
+
+Table oficio_demanda {
+  numdemofc integer [pk]
+  anodemofc integer [pk]
+  textdemofc text
+  fk_demanda varchar(5) [ref: > demanda.coddem] 
+}
+
+Table solicitacao {
+  codsol varchar(5) [pk]
+  quantidade_solicitacao integer
+  fk_item_s varchar(12) [ref: > item.nuc] 
+  fk_user_s varchar(5) [ref:> user_slc.codusrslc]
+}
+
+Table oficio_solicitacao {
+  numsolofc integer [pk]
+  anosolofc integer [pk]
+  textsolofc varchar(150)
+  fk_solicitacao varchar(5) [ref:> solicitacao.codsol]
+  fk_user_slc_s varchar(5) [ref:> user_slc.codusrslc]
+}
+
+Table fornecedor {
+  cnpjforn varchar(18) [pk]
+  nomeforn varchar(35)
+  ufforn varchar(2)
+  cepforn varchar(9)
+  cidadeforn varchar(20)
+  bairroforn varchar(20)
+  numendrforn varchar(4)
+  logradouroforn varchar(35)
+  fk_representante varchar(14) [ref:> representante.cpfrepr]
+  
+}
+Table fornece {
+  numeroitem integer [pk]
+  valorunitario money
+  quantidadeitem integer
+  descricaoitem text
+  fk_item_f varchar(12) [ref:> item.nuc]
+  fk_fornecedor_f varchar(18) [ref:> fornecedor.cnpjforn]
+}
+Table representante {
+  cpfrepr varchar(14) [pk]
+  idrepr integer
+  nome varchar(35)
+}
+
+Table unidade {
+  codunid varchar(5) [pk]
+  nomeunid varchar(40)
+  cepunid varchar(9)
+  cidadeunid varchar(20)
+  bairrounid varchar(20)
+  numendrunid varchar(4)
+  logradourounid varchar(35)
+  telefoneunid varchar(10)
+  tipounid bit
+  emailunid text
+  fk_usr_resp varchar(5) [ref: > user_slc.codusrslc]
+}
+
+Table user_lct {
+  codusrlic varchar(5) [pk]
+  nomeusrlic varchar(35)
+}
