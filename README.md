@@ -10,18 +10,24 @@ Este repositório refere-se ao **Trabalho Integrador** das disciplinas de **Prog
 O código do sistema está estruturado da seguinte forma:
 
 - ./src/
-  - docs/ *Documentação do projeto*
+- docs/ *Documentação do projeto*
     - diagramas/
         - **Modelo Conceitual construído na ferramenta brModelo (https://app.brmodeloweb.com/#!/publicview/6849d5d55f7c40653b62241e)**
+        - **Modelo Lógico construído na ferramenta dbDiagram (https://dbdiagram.io/d/6861e767f413ba35086db0d1)**
+        - **Modelo Lógico em formato de código adaptado para a ferramenta dbDiagram**
     - glossario/
+        - **Glossário.pdf**
     - requisitos/
         - **Documento de Elicitação de Requistitos**
+- ./src/
   - backend/ *Código backend*
   - frontend/ *Código frontend*
     - css/ *Código em CSS*
     - html/ *Código em HTML*
     - img/ *Repositório de Imagens*
     - js/ *Código em JavaScript*
+  - database/ *Modelo Físico do Banco de Dados*
+    - dbSIGARP.sql
   - README.md *Descrição Repositório Github* 
 
 
