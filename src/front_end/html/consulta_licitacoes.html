@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="container_menu">
+        <!-- Botão para abrir/fechar o menu lateral -->
+
+        <!-- Menu lateral fixo -->
+        <aside class="menu_lateral">
+            <h2> <button id="toggle_menu" class="botao_menu">
+                    <i class='bx bx-menu'></i>
+                </button>MENU</h2>
+            <div>
+                <!-- Navegação principal -->
+                <nav>
+                    <ul>
+                        <!-- Lista de opções do menu -->
+                        <li> <a href="../html/cadastro_unidade.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Unidade </a></li>
+                        <li> <a href="../html/cadastro_usuario.html"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
+                        <li> <a href="../html/cadastro_item.html"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
+                        <li> <a href="../html/cadastro_fornecedor.html"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="../html/cadastro_lance.html"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Lance </a></li>
+                        <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
+                        <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
+
+                    </ul>
+                </nav>
+
+            </div>
+            <!-- Área do usuário no menu lateral -->
+            <div class="usuario_menu">
+                <i class='bx bxs-user-circle'></i>
+                <span>Nome do Usuário</span>
+            </div>
+            <!-- Popup de confirmação para logout -->
+            <div id="popup" class="popup">
+                <p>Deseja sair?</p>
+                <button class="btn cancelar" onclick="logout()">Sair</button>
+                <button class="btn " onclick="closePopup()">Cancelar</button>
+            </div>
+
+        </aside>
+
+
+
+        <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
+        <section>
+            <!-- Formulário para cadastro de usuário -->
+            <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
+                <h2>CONSULTAR LICITAÇÕES</h2>
+                <!-- Linha com campos de entrada agrupados -->
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="barra_de_consulta">Pesquisa</label>
+                        <input type="text" id="barra_de_consulta" name="barra_de_consulta" required>
+                    </div>
+
+                    <div class="input">
+                        <label for="funcao_usuario">Função:</label>
+                        <select id="funcao_usuario" name="funcao_usuario" required>
+                            <!-- Dropdown obrigatório para seleção da função -->
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Licitação">Licitação</option>
+                            <option value="Solicitante">Solicitante</option>
+                        </select>
+                    </div>
+
+                    <div class="input">
+                        <label for="unidade_usuario">Unidade:</label>
+                        <input type="text" id="unidade_usuario" name="unidade_usuario" required>
+                    </div>
+                </div>
+                <!-- linha de campos -->
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="email_usuario">Email:</label>
+                        <input type="email" id="email_usuario" name="email_usuario" required>
+                    </div>
+                    <div class="input">
+                        <label for="senha_usuario">Senha Padrão:</label>
+                        <input type="password" id="senha_usuario" name="senha_usuario" value="senha123" readonly />
+                        <i class='bx bxs-show' id="toggleSenha"></i>
+                    </div>
+                </div>
+                <!-- Linha com botões -->
+                <div class="linha-campos">
+                    <button type="button" class="btn cancelar">CANCELAR</button>
+                    <button type="submit" class="btn">GRAVAR</button>
+                </div>
+            </form>
+        </section>
+
+    </div>
+
+    <script src="../js/script_cadastro_usuario.js"></script>
+
+</body>
+
+</html>
