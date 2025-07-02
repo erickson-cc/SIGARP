@@ -96,6 +96,20 @@ passport.use(
 	),
 );
 
+passport.serializeUser(function (user, cb) {
+	process.nextTick(function () {
+		return cb(null, {
+			user_id: user.user_id,
+			username: user.user_id,
+		});
+	});
+});
+passport.deserializeUser(function (user, cb) {
+	process.nextTick(function (){
+		return cb(null, user);
+	});
+});
+
 
 
 const PORT = 3002;
