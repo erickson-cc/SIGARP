@@ -2,17 +2,101 @@ const express = require("express");
 const path = require('path');
 const { body, validationResult } = require('express-validator');
 const pgp = require("pg-promise")({});
+const bcypt = require("bcrypt");
 
 const usuario = "postgres";
 const senha = "postgres";
 const db = pgp(`postgres://${usuario}:${senha}@localhost:5432/sigarp`);
 
 const app = express();
-app.use(express.json());
+const session = require('express-session');
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
 
+
+
+
+
+
+
+app.use(
+	session({
+		secret: "your-secret-key",
+		resave: false,
+		saveUnintialized: false,
+		cookie: { secure: true },
+	}),
+);
+
+
+app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
 // busca os arquivos 'estáticos' na pasta 'public': JS e CSS
-//app.use(express.static(__dirname + "/public"));
 app.use(express.static(path.join(__dirname, '..', 'front_end')));
+passport.use(
+	new LocalStrategy(
+		{
+			usernameField: "usuario",
+			passwordFiels:	"senha",
+		},
+		async (usuario, senha, done) => {
+			try {
+				const user = await db.oneOrNone(
+					"SELECT * FROM users WHERE user_id = $1;",
+					[usuario],
+				);
+				if(!user) {
+					return done(null, false, { message : "Usuário Incorreto." });
+				}
+					const passwordMatch = await bcrypt.compare(
+						password,
+						user.user_password,
+					);
+
+					if (passwordMatch) {
+						console.log("Usuário Autenticado!");
+						return done(null, user);
+					}
+					else {
+						return done(null, false, { message: "Senha Incorreta." });
+					}
+				}
+				catch (error) {
+					return done(error);
+				}
+		},
+	),
+);
+passport.use(
+	new JwtStrategy(
+		{
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			secretOrKey: "your-secret-key",
+		},
+		async (payload, done) => {
+			try{
+				const user = await db.oneOrNone(
+					"SELECT * FROM users WHERE user_id = $1;",
+					[payload.username],// ou usuario
+				);
+
+				if (user) {
+					done(null, user);
+				}
+				else{
+					done(null, false);
+				}
+			}catch (error) {
+				done(error, fale);
+			}
+		},
+	),
+);
+
+
 
 const PORT = 3002;
 app.listen(PORT, () => console.log(`Servidor está rodando na porta ${PORT}.`));
@@ -21,8 +105,17 @@ app.get("/login", (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'login.html'));
 });
 
-app.get("/cadastro_demanda", (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_demanda.html'));
+const requireJWTAuth = passport.authenticate("jwt", {session:false});
+app.get("/cadastro_demanda", requireJWTAuth, async (req, res) => {
+	try{
+		const clientes = await db.any("SELECT * FROM CLIENTES;");
+		console.log("Retornando todos os clientes.");
+		res.json(clientes).status(200);
+		res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_demanda.html'));
+	} catch (error) {
+		console.log(error);
+		res.sendStatus(400);
+	}
 });
 
 app.get("/cadastro_fornecedor", (req, res) => {
