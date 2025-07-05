@@ -47,7 +47,7 @@ function closePopup() {
 }
 
 document.querySelector('.sair').addEventListener('click', function () {
-        window.location.href = '../html/login.html';  // Redireciona para a tela de Licitação
+        window.location.href = '../login';  // Redireciona para a tela de Licitação
 
 });
 // **********************************************************************************************
@@ -116,7 +116,7 @@ function atualizar_tabela_lances(lances) {
             localStorage.setItem('visualizar_num_pregao', lance.num_pregao);
             localStorage.setItem('visualizar_cnpj_fornecedor', lance.cnpj_fornecedor);
             localStorage.setItem('lic_chave_atual', localStorage.getItem('lic_chave_atual'));
-            window.location.href = './cadastro_lance.html';          // Redireciona para a tela de cadastro de lance
+            window.location.href = './cadastro_lance';          // Redireciona para a tela de cadastro de lance
         });
         cell_editar.appendChild(btn_editar);
 
@@ -206,7 +206,7 @@ document.querySelector('.add_lance').addEventListener('click', function () {
         bloquear_campos_licitacao();
 
     // Redireciona o usuário para a página de cadastro de lance
-    window.location.href = '../html/cadastro_lance.html';
+    window.location.href = '../cadastro_lance';
 });
 function bloquear_campos_licitacao() {
     document.getElementById('num_licitacao').readOnly = true;
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Volta para a tela anterior
                 //window.history.back();
-                 window.location.href = '../html/cadastro_item.html';
+                 window.location.href = '../cadastro_item';
             }
         });
     } else {

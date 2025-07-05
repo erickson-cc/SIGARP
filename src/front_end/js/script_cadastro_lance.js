@@ -47,7 +47,7 @@ function closePopup() {
 }
 
 document.querySelector('.sair').addEventListener('click', function () {
-        window.location.href = '../html/login.html';  // Redireciona para a tela de Licitação
+        window.location.href = '../login';  // Redireciona para a tela de Licitação
 
 });
 // **************************************************************************************************
@@ -215,7 +215,7 @@ document.querySelector('.btn-gravar').addEventListener('click', function () {
     localStorage.removeItem('visualizar_num_pregao');        // Limpa o estado de visualização
     localStorage.removeItem('visualizar_cnpj_fornecedor');
 
-    window.location.href = '../html/cadastro_licitacao.html';  // Redireciona para a tela de Licitação
+    window.location.href = '../cadastro_licitacao';  // Redireciona para a tela de Licitação
 });
 
 // *************************************************************************************************

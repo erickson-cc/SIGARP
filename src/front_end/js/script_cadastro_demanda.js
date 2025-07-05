@@ -47,7 +47,7 @@ function closePopup() {
 }
 
 document.querySelector('.sair').addEventListener('click', function () {
-    window.location.href = '../html/login.html';
+    window.location.href = '../login';
 });
 /***********************************************************************************************************************************/
 

@@ -60,8 +60,10 @@ function showPopup() {
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
+function func_fornecedor() {
+};
 document.querySelector('.sair').addEventListener('click', function () {
-        window.location.href = '../html/login.html';  // Redireciona para a tela de Licitação
+        window.location.href = '../login';  // Redireciona para a tela de Licitação
 
 });
 

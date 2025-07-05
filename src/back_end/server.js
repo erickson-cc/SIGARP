@@ -169,6 +169,11 @@ app.post("/login", function (req, res) {
   res.send(`Hello, ${nome}!`);
 });
 
+app.get("/", (req, res) => {
+	// Redireciona para login
+	// Implementar algo para reconhecer se o usuário está autenticado
+	res.redirect("/login");
+});
 // A partir daqui é o template
 app.get("/clientes", async (req, res) => {
   try {
