@@ -215,7 +215,7 @@ document.querySelector('.btn-gravar').addEventListener('click', function () {
     localStorage.removeItem('visualizar_num_pregao');        // Limpa o estado de visualização
     localStorage.removeItem('visualizar_cnpj_fornecedor');
 
-    window.location.href = '../cadastro_licitacao';  // Redireciona para a tela de Licitação
+    window.location.href = 'http://localhost:3000/cadastro_licitacao';  // Redireciona para a tela de Licitação
 });
 
 // *************************************************************************************************

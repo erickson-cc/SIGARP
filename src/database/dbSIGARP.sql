@@ -2,6 +2,17 @@ drop database sigarp;
 create database sigarp;
 \c sigarp;
 
+CREATE TABLE IF NOT EXISTS usuario (
+    id integer not null,
+    nome_completo varchar(60) not null,
+    funcao varchar(60) not null check (funcao in ('Administrador', 'Licitação', 'Solicitante')),
+    nomeunid_u varchar(40) not null,
+    email varchar(255)  not null,
+    senha text not null,
+	constraint pk_usuario primary key (id),
+	constraint uk_usuario unique (email)
+
+);
 CREATE TABLE IF NOT EXISTS item (
 	nuc varchar(12) not null,
 	nomeitem varchar not null,
@@ -120,8 +131,8 @@ CREATE TABLE IF NOT EXISTS unidade (
 	numendrunid varchar(4) not null,
 	logradourounid varchar(35) not null,
 	telefoneunid varchar(10) not null,
-	tipounid bit not null,
-	emailunid text not null
+	tipounid bit not null
+	nomediretunid varchar(40) not null,
 
 );
 

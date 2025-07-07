@@ -13,20 +13,20 @@
 <body class="login">
     <div class="login_container">
         <h2>Entrar</h2>
-        <form> <!--Para enviar o formulario para o back é necessario addo name-->
+        <form id="formLogin"> <!--Para enviar o formulario para o back é necessario addo name-->
 
             <div class="input">
                 <!--ao clicar na palavra email irá direto para o campo(FOR=EMAIL) para colocar o email-->
                 <label for="email">E-mail:</label>
                 <!--type = email, é validação se é um email mesmo, id é para o label saber pra onde ir-->
                 <!--name é o como será enviando para o back as infos, placeholder é a palavras dentro do campo e required é obrigatorio está com info para o envio-->
-                <input type="email" , id="email" , name="email" , placeholder="Digite o seu email" required>
+                <input type="email" id="email"  name="usuario"  placeholder="Digite o seu email" required>
                 <i class="bx bxs-user"></i>
             </div>
 
             <div class="input">
                 <label for="senha">Senha:</label>
-                <input type="password" , id="senha" , name="senha" , placeholder="Digite a sua senha" required>
+                <input type="password"  id="senha"  name="senha"  placeholder="Digite a sua senha" required>
                 <i class='bx bxs-show' id="toggleSenha"></i>
             </div>
 
@@ -39,7 +39,7 @@
             </div>
         </form>
 
-        <script src="../js/script_login.js"></script>
+        <script src="../js/script_login.js" type="text/javascript"></script>
 
     </div>
 

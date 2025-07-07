@@ -12,3 +12,30 @@ document.getElementById("toggleSenha").addEventListener("click", function () {
     icone.classList.add("bxs-show");
   }
 });
+
+document.getElementById("formLogin").addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  try {
+    const response = await fetch("http://localhost:3000/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        senha
+      }),
+      credentials: "include"
+    });
+
+    if(response.ok)
+      window.location.href = "http://localhost:3000/cadastro_usuario";
+    
+  } catch (error) {
+    console.error("Erro ao fazer login:", error);
+  }
+});

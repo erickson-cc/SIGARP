@@ -24,13 +24,13 @@
                 <nav>
                     <ul>
                         <!-- Lista de opções do menu -->
-                        <li> <a href="../cadastro_unidade"><i class='bx bx-home icone_input'></i>Cadastrar Unidade </a></li>
-                        <li> <a href="../cadastro_usuario"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
-                        <li> <a href="../cadastro_item"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
-                        <li> <a href="../cadastro_fornecedor" onclick="func_fornecedor()"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
-                        <li> <a href="../cadastro_licitacao"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
-                        <li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
-                        <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_unidade"><i class='bx bx-home icone_input'></i>Cadastrar Unidade </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_usuario"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_item"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_fornecedor"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_licitacao"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
+                        <!--<li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
+                        <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>-->
 
                     </ul>
                 </nav>
@@ -44,7 +44,7 @@
             <!-- Popup de confirmação para logout -->
             <div id="popup" class="popup">
                 <p>Deseja sair?</p>
-                <button class="btn sair" onclick="logout()">Sair</button>
+                <button class="btn sair">Sair</button>
                 <button class="btn " onclick="closePopup()">Cancelar</button>
             </div>
 
@@ -55,7 +55,7 @@
         <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
         <section>
             <!-- Formulário para cadastro de usuário -->
-            <form class="form_cadastro" >
+            <form class="form_cadastro">
                 <h2>CADASTRAR USUÁRIO</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
@@ -95,7 +95,7 @@
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
-                    <button type="submit" class="btn">GRAVAR</button>
+                    <button type="submit" class="btn btn-gravar">GRAVAR</button>
                 </div>
             </form>
         </section>
