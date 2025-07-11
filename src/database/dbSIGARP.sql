@@ -2,7 +2,22 @@ drop database sigarp;
 create database sigarp;
 \c sigarp;
 
-<<<<<<< HEAD
+CREATE TABLE IF NOT EXISTS unidade (
+	codunid varchar(5) not null,
+	nomeunid varchar(40) not null,
+	cepunid varchar(9) not null,
+	cidadeunid varchar (20) not null,
+	bairrounid varchar(20) not null,
+	numendrunid varchar(4) not null,
+	logradourounid varchar(35) not null,
+	telefoneunid varchar(10) not null,
+	tipounid bit not null,
+	emailunid text not null,
+	representante varchar(5) not null,
+	constraint pk_codunid primary key (codunid)
+--	constraint fk_usr_resp foreign key (representante) references user_slc(codusrslc)
+
+);
 
 CREATE TABLE IF NOT EXISTS user_lct (
 	codusrlic varchar(5) not null,
@@ -19,26 +34,8 @@ CREATE TABLE IF NOT EXISTS user_slc (
 	constraint fk_unidade_lota foreign key (unidade_lota) references unidade(codunid) -- Corrigir essa questão das duas tabelas apontarem uma para a outra
 
 );
-CREATE TABLE IF NOT EXISTS unidade (
-	codunid varchar(5) not null,
-	nomeunid varchar(40) not null,
-	cepunid varchar(9) not null,
-	cidadeunid varchar (20) not null,
-	bairrounid varchar(20) not null,
-	numendrunid varchar(4) not null,
-	logradourounid varchar(35) not null,
-	telefoneunid varchar(10) not null,
-	tipounid bit not null,
-	emailunid text not null,
-	representante varchar(5) not null,
-	constraint pk_codunid primary key (codunid),
-	constraint fk_usr_resp foreign key (representante) references user_slc(codusrslc)
+alter table unidade add constraint fk_usr_resp foreign key (representante) references user_slc(codusrslc); --  Para arrumar a dependência circular 
 
-);
-
-
-
-=======
 CREATE TABLE IF NOT EXISTS usuario (
     id integer not null,
     nome_completo varchar(60) not null,
@@ -50,7 +47,6 @@ CREATE TABLE IF NOT EXISTS usuario (
 	constraint uk_usuario unique (email)
 
 );
->>>>>>> d78451eb9eceebf8bd6079d6995730618a726e42
 CREATE TABLE IF NOT EXISTS item (
 	nuc varchar(12) not null,
 	nomeitem varchar not null,
@@ -113,6 +109,13 @@ CREATE TABLE IF NOT EXISTS oficio_demanda (
 
 
 );
+CREATE TABLE IF NOT EXISTS solicitacao (
+	codsol varchar(5) not null,
+	user_s varchar(5) not null,
+	constraint fk_codsol primary key (codsol),
+	constraint fk_user_s foreign key (user_s) references user_slc(codusrslc)
+
+);
 
 CREATE TABLE IF NOT EXISTS solicitacao_item (
 	quantidade_solicitacao integer not null,
@@ -123,13 +126,6 @@ CREATE TABLE IF NOT EXISTS solicitacao_item (
 
 );
 
-CREATE TABLE IF NOT EXISTS solicitacao (
-	codsol varchar(5) not null,
-	user_s varchar(5) not null,
-	constraint fk_codsol primary key (codsol),
-	constraint fk_user_s foreign key (user_s) references user_slc(codusrslc)
-
-);
 
 CREATE TABLE IF NOT EXISTS oficio_solicitacao (
 	numsolofc integer not null,
@@ -148,8 +144,7 @@ CREATE TABLE IF NOT EXISTS ata_rp (
 	licitacao_nro_ref integer not null,
 	licitacao_ano_ref integer not null,
 	constraint pk_codarp primary key (codarp),
-	constraint fk_licitacao_nro foreign key (licitacao) references licitacao(numerolic),
-	constraint fk_licitacao_ano foreign key (licitacao) references licitacao(anolic)
+	constraint fk_licitacao_ref foreign key (licitacao_nro_ref, licitacao_ano_ref) references licitacao(numerolic, anolic)
 
 );
 CREATE TABLE IF NOT EXISTS pedido (
@@ -176,6 +171,13 @@ CREATE TABLE IF NOT EXISTS pedido_item (
 	inclui_item varchar(12) not null,
 	constraint fk_pedido foreign key (inclui_pedido) references pedido(codped),
 	constraint fk_item_i foreign key (inclui_item) references item(nuc)
+);
+CREATE TABLE IF NOT EXISTS representante (
+	cpfrepr varchar(14) not null,
+	idrepr integer not null,
+	nome varchar(35) not null,
+	constraint pk_cpfrepr primary key (cpfrepr)
+
 );
 
 
@@ -206,40 +208,4 @@ CREATE TABLE IF NOT EXISTS fornece_item (
 
 );
 
-CREATE TABLE IF NOT EXISTS representante (
-	cpfrepr varchar(14) not null,
-	idrepr integer not null,
-	nome varchar(35) not null,
-	constraint pk_cpfrepr primary key (cpfrepr),
 
-);
-
-<<<<<<< HEAD
-=======
-CREATE TABLE IF NOT EXISTS unidade (
-	codunid varchar(5) not null,
-	nomeunid varchar(40) not null,
-	cepunid varchar(9) not null,
-	cidadeunid varchar (20) not null,
-	bairrounid varchar(20) not null,
-	numendrunid varchar(4) not null,
-	logradourounid varchar(35) not null,
-	telefoneunid varchar(10) not null,
-	tipounid bit not null
-	nomediretunid varchar(40) not null,
-
-);
-
-
-CREATE TABLE IF NOT EXISTS user_lct (
-	codusrlic varchar(5) not null,
-	nomeusrlic varchar(35)) not null
-
-);
-
-CREATE TABLE IF NOT EXISTS user_slc (
-	codusrslc varchar(5) not null,
-	nomeusrslc varchar(35)) not null
-
-);
->>>>>>> d78451eb9eceebf8bd6079d6995730618a726e42

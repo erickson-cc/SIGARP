@@ -15,6 +15,48 @@ document.getElementById("toggle_menu").addEventListener("click", function () {
     }
 });
 // Evento de clique no avatar do usuário (ícone com nome)
+$("#btn_gravar").click(function(){ //Jquery
+	//$("#form_cadastro_licitacao").submit();
+	event.preventDefault(); // Impede o comportamento padrão do formulário
+	createPost_licita(); // Chama a função que usa o Axios
+	}
+);
+//function processaResultado(query) {
+function processaResultado(response) {
+	console.log("deu certo", response.data);
+	alert("Licitação gravada com sucesso");
+	// Atualizar a tabela de consulta de licitaçoes
+}
+function processErrors(error) {
+	//console.log("deu errado");
+	console.error("Ocorreu um erro:", error.response ? error.response.data : error.message);	
+	alert("Erro ao gravar a licitação");
+}
+
+function createPost_licita(){
+	const data = {
+		// As chaves aqui devem corresponder ao que o servidor espera no req.body
+	//	num_licitacao: $("#num_licitacao")[0].value,
+	//	ano_licitacao: $("#ano_licitacao")[0].value,
+	//	descricao_licitacao: $("#descricao_licitacao")[0].value
+		num_licitacao: $("#num_licitacao").val(),
+		ano_licitacao: $("#ano_licitacao").val(),
+		descricao_licitacao: $("#descricao_licitacao").val()	
+	}
+	// Verifica se os campos não estão vazios antes de enviar
+	if (!data.num_licitacao || !data.ano_licitacao || !data.descricao_licitacao) {
+		alert("Por favor, preencha todos os campos da licitação.");
+		return;
+	}
+//	const post = axios.post("http://localhost:3002/cadastro_licitacao_rota", data);
+//	post.then(processaResultado).catch(processErrors);
+	axios.post("http://localhost:3000/cadastro_licitacao_rota", data)
+	    .then(processaResultado)
+	    .catch(processErrors);
+
+
+}
+
 document.querySelector(".usuario_menu").addEventListener("click", function (event) {
     let popup = document.getElementById("popup"); // Referência ao pop-up de logout
 
@@ -116,7 +158,7 @@ function atualizar_tabela_lances(lances) {
             localStorage.setItem('visualizar_num_pregao', lance.num_pregao);
             localStorage.setItem('visualizar_cnpj_fornecedor', lance.cnpj_fornecedor);
             localStorage.setItem('lic_chave_atual', localStorage.getItem('lic_chave_atual'));
-            window.location.href = 'http://localhost:3000/cadastro_lance';          // Redireciona para a tela de cadastro de lance
+            window.location.href = 'http://localhost:3002/cadastro_lance';          // Redireciona para a tela de cadastro de lance
         });
         cell_editar.appendChild(btn_editar);
 
@@ -206,13 +248,17 @@ document.querySelector('.add_lance').addEventListener('click', function () {
         bloquear_campos_licitacao();
 
     // Redireciona o usuário para a página de cadastro de lance
-    window.location.href = 'http://localhost:3000/cadastro_lance';
+    window.location.href = 'http://localhost:3002/cadastro_lance';
 });
 function bloquear_campos_licitacao() {
     document.getElementById('num_licitacao').readOnly = true;
     document.getElementById('ano_licitacao').readOnly = true;
     document.getElementById('descricao_licitacao').readOnly = true;
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const btn_gravar = document.querySelector('.gravar');
+
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const btn_cancelar = document.querySelector('.cancelar');
@@ -235,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.removeItem('lic_chave_atual');
 
                 // Volta para a tela anterior
-                window.location.href = 'http://localhost:3000/cadastro_licitacao';
+                window.location.href = 'http://localhost:3002/cadastro_licitacao';
             }
         });
     } else {
