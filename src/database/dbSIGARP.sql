@@ -36,11 +36,12 @@ CREATE TABLE IF NOT EXISTS user_slc (
 );
 alter table unidade add constraint fk_usr_resp foreign key (representante) references user_slc(codusrslc); --  Para arrumar a dependência circular 
 
-CREATE TABLE IF NOT EXISTS usuario (
+CREATE TABLE IF NOT EXISTS usuario (-- Usuário de acesso ao sistema
     id integer not null,
     nome_completo varchar(60) not null,
     funcao varchar(60) not null check (funcao in ('Administrador', 'Licitação', 'Solicitante')),
-    nomeunid_u varchar(40) not null,
+	fk_codusrlic_user varchar(5) null, -- Vai apontar para um tipo de usuário dependendo da funcao
+	fk_codusrlct_user varchar(5) null,
     email varchar(255)  not null,
     senha text not null,
 	constraint pk_usuario primary key (id),
@@ -130,7 +131,7 @@ CREATE TABLE IF NOT EXISTS solicitacao_item (
 CREATE TABLE IF NOT EXISTS oficio_solicitacao (
 	numsolofc integer not null,
 	anosolofc integer not null,
-	textsolofc varchar(150) null,
+	textsolofc text null,
 	solicitacao_ofc_ref varchar(5) not null,
 	user_slc_ofc_ref varchar(5) not null,
 	constraint pk_numsolofc primary key (numsolofc, anosolofc),
