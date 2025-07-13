@@ -31,11 +31,21 @@ document.getElementById("formLogin").addEventListener("submit", async function (
       }),
       credentials: "include"
     });
-
-    if(response.ok)
-      window.location.href = "http://localhost:3000/cadastro_usuario";
+	const data = await response.json(); // parsear a resposta json
+    if(response.ok) {
+	  if (data.redirectUrl) {
+		window.location.href = data.redirectUrl; // Redireciona para a URL fornecida pelo servidor
+      } else {
+        // Caso o servidor não envie redirectUrl, mas o login foi OK (situação inesperada, mas tratada)
+		alert("Login bem-sucedido, mas sem URL de redirecionamento.");
+	      }
+	  } else {
+		alert(`Erro no login: ${data.status || "Credenciais inválidas."}`);
+	  }
+      //window.location.href = "http://localhost:3000/cadastro_usuario";
     
   } catch (error) {
     console.error("Erro ao fazer login:", error);
+    alert("Erro na comunicação com o servidor. Tente novamente.");
   }
 });

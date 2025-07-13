@@ -2,7 +2,7 @@ const express = require("express");
 const path = require('path');
 const { body, validationResult } = require('express-validator');
 const pgp = require("pg-promise")({});
-const bcypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const usuario = "postgres";
 const senha = "postgres";
@@ -26,7 +26,7 @@ app.use(
 		secret: "your-secret-key",
 		resave: false,
 		saveUninitialized: false,
-		cookie: { secure: true },
+		cookie: { secure: false },// true (cookies)
 	}),
 );
 
@@ -39,21 +39,29 @@ app.use(express.static(path.join(__dirname, '..', 'front_end')));
 passport.use(
 	new LocalStrategy(
 		{
-			usernameField: "usuario",
+			usernameField: "email",
 			passwordField:	"senha",
 		},
-		async (usuario, senha, done) => {
+		async (email, senha, done) => {
+			console.log("--- Tentativa de Login ---");
+			console.log("Email recebido:", email);
+			console.log("Senha recebida (plain text):", senha);
+
 			try {
 				const user = await db.oneOrNone(
-					"SELECT * FROM users WHERE user_id = $1;",
-					[usuario],
+					"SELECT * FROM usuario WHERE email = $1;",
+					[email],
 				);
 				if(!user) {
-					return done(null, false, { message : "Usuário Incorreto." });
+					console.log("Usuário não encontrado para o email:", email);
+					return done(null, false, { message : "Email ou senha incorretos" });
 				}
+				console.log("Usuário encontrado (do banco de dados):", user.email);
+				console.log("Senha do banco de dados (hashed):", user.senha); 
+
 					const passwordMatch = await bcrypt.compare(
 						senha,
-						user.user_password,
+						user.senha,
 					);
 
 					if (passwordMatch) {
@@ -61,11 +69,16 @@ passport.use(
 						return done(null, user);
 					}
 					else {
-						return done(null, false, { message: "Senha Incorreta." });
+						console.log("Senha incorreta para o usuário:", email);
+
+						return done(null, false, { message: "Email ou senha incorretos" });
 					}
 				}
 				catch (error) {
+					console.error("Erro na autenticação", error);
 					return done(error);
+				} finally {
+					console.log("--- Fim da Tentativa de Login ---");
 				}
 		},
 	),
@@ -78,13 +91,15 @@ passport.use(
 		},
 		async (payload, done) => {
 			try{
-				const user = await db.oneOrNone(
-					"SELECT * FROM users WHERE user_id = $1;",
-					[payload.username],// ou usuario
+				const usuario = await db.oneOrNone(
+					//"SELECT * FROM users WHERE user_id = $1;",
+					//[payload.username],// ou usuario
+					"SELECT * FROM usuario WHERE id = $1;",
+					[payload.id],// ou usuario
 				);
 
-				if (user) {
-					done(null, user);
+				if (usuario) {
+					done(null, usuario);
 				}
 				else{
 					done(null, false);
@@ -99,8 +114,8 @@ passport.use(
 passport.serializeUser(function (user, cb) {
 	process.nextTick(function () {
 		return cb(null, {
-			user_id: user.user_id,
-			username: user.user_id,
+			user_id: user.id,
+			email: user.email,
 		});
 	});
 });
@@ -119,8 +134,37 @@ app.get("/login", (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'login.html'));
 });
 
-const requireJWTAuth = passport.authenticate("jwt", {session:false});
-app.get("/cadastro_demanda", requireJWTAuth, async (req, res) => {
+app.post("/user/login", (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.error("Erro de autenticação:", err);
+            return res.status(500).json({ status: "Erro interno do servidor." });
+        }
+        if (!user) {
+            // Autenticação falhou
+            return res.status(401).json({ status: info.message || "E-mail ou senha incorretos." });
+        }
+        // Autenticação bem-sucedida, logar o usuário na sessão
+        req.logIn(user, (err) => {
+            if (err) {
+                console.error("Erro ao logar usuário:", err);
+                return res.status(500).json({ status: "Erro ao estabelecer sessão." });
+            }
+            // Redirecionar para a página de cadastro de licitação
+            return res.status(200).json({ status: "Login bem-sucedido!", redirectUrl: "/cadastro_licitacao" });// aqui tá o window.location.ref do script_login.js
+        });
+    })(req, res, next);
+});
+
+const requireJWTAuth = passport.authenticate("jwt", {session:false});//descartável
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next(); // Usuário autenticado, continua para a próxima rota
+    }
+    // Se não estiver autenticado, redireciona para a página de login
+    res.redirect('/login');
+}
+app.get("/cadastro_demanda", isAuthenticated, async (req, res) => {
 	try{
 		// Comentei pois ficou com 2 res na mesma função
 		//const clientes = await db.any("SELECT * FROM CLIENTES;");
@@ -133,35 +177,35 @@ app.get("/cadastro_demanda", requireJWTAuth, async (req, res) => {
 	}
 });
 
-app.get("/cadastro_fornecedor", (req, res) => {
+app.get("/cadastro_fornecedor", isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_fornecedor.html'));
 });
 
-app.get("/cadastro_item", (req, res) => {
+app.get("/cadastro_item", isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_item.html'));
 });
 
-app.get("/cadastro_lance", (req, res) => {
+app.get("/cadastro_lance",  isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_lance.html'));
 });
 
-app.get("/cadastro_licitacao", (req, res) => {
+app.get("/cadastro_licitacao", isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_licitacao.html'));
 });
 
-app.get("/cadastro_solicitacao", (req, res) => {
+app.get("/cadastro_solicitacao",  isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_solicitacao.html'));
 });
 
-app.get("/cadastro_unidade", (req, res) => {
+app.get("/cadastro_unidade",  isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_unidade.html'));
 });
 
-app.get("/cadastro_usuario", (req, res) => {
+app.get("/cadastro_usuario",  isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_usuario.html'));
 });
 
-app.get("/consulta_licitacoes", (req, res) => {
+app.get("/consulta_licitacoes",  isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'consulta_licitacoes.html'));
 });
 app.post("/cadastro_fornecedor_rota",
@@ -188,14 +232,15 @@ app.post("/cadastro_fornecedor_rota",
                 nomeforn,
                 cnpjforn,
                 nomerepr,
+		cpfrepr,
                 idrepr,
                 logradouroforn,
                 bairroforn,
                 numendrforn,
                 cepforn,
                 cidadeforn,
-                ufforn,
-                representante_ref
+                ufforn
+                //representante_ref
             } = req.body;
 
 
