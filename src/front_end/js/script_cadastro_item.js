@@ -37,7 +37,33 @@ document.addEventListener("click", function (event) {
     closePopup();
   }
 });
+function processaResultado(response){
+	console.log("Inclusão do item com sucesso", response.data);
+	alert("Item gravado com sucesso");
+}
+function processErrors(error){
+	console.error("Ocorreu um erro: ", error.response ? error.response.data : error.message);
+	alert("Erro ao gravar o item");
+}
 
+$("#btn_gravar_item").click(function(){
+	event.preventDefault();
+	createPost_item();
+	}
+);
+function createPost_item(){
+	const data = {
+		nuc: $("#nuc_item").val(),
+		nomeitem: $("#nome_item").val()
+	}
+	if (!data.nuc || !data.nomeitem) {
+		alert("Por favor, preencha todos os campos do item.");
+		return;
+	}
+	axios.post("http://localhost:3000/cadastro_item_rota", data)
+		.then(processaResultado)
+		.catch(processErrors);
+}
 function showPopup() {
   document.getElementById("popup").style.display = "block";
 }

@@ -55,7 +55,7 @@
         <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
         <section>
             <!-- Formulário para cadastro de usuário -->
-            <form class="form_cadastro" >
+            <form class="form_cadastro" id="form_cadastro_item">
                 <h2>CADASTRAR ITEM</h2>
                 <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
@@ -76,13 +76,16 @@
                 <!-- Linha com botões -->
                 <div class="linha-campos">
                     <button type="button" class="btn cancelar">CANCELAR</button>
-                    <button type="submit" class="btn btn-gravar">GRAVAR</button>
+                    <button type="submit" class="btn btn-gravar" id="btn_gravar_item">GRAVAR</button>
                 </div>
             </form>
         </section>
 
     </div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/script_cadastro_item.js"></script>
 
 </body>

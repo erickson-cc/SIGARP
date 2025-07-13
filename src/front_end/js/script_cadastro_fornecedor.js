@@ -60,33 +60,59 @@ document.querySelector('.cancelar').addEventListener('click', function () {
 document.querySelector('.form_cadastro').addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    const inputs = e.target.elements;
+	const inputs = e.target.elements;
 
-    const nuc_item = inputs[0].value;
-    const nome_item = inputs[1].value;
-    
+	const nomeforn = inputs.nome_fornecedor.value;
+	const cnpjforn = inputs.cnpj_fornecedor.value;
+	const nomerepr = inputs.nome_representante_fornecedor.value;
+	const cpfrepr = inputs.cpf_representante_fornecedor.value;
+	const idrepr = inputs.rg_representante_fornecedor.value;
+	const logradouroforn = inputs.logadouro_fornecedor.value;
+	const bairroforn = inputs.bairro_fornecedor.value;
+	const numendrforn = inputs.numero_end_fornecedor.value;
+	const cepforn = inputs.cep_fornecedor.value;
+	const cidadeforn = inputs.cidade_fornecedor.value;
+	const ufforn = inputs.uf_fornecedor.value; // Note: o ID é 'uf_unidade' no HTML, mas é para o fornecedor
+
     try {
-      const response = await fetch("http://localhost:3000/user/cadastro_item", {
+      const response = await fetch("http://localhost:3000/user/cadastro_fornecedor_rota", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          nuc_item,
-          nome_item
+		nomeforn,
+		cnpjforn,
+		nomerepr,
+		cpfrepr,
+		idrepr,
+		logradouroforn,
+		bairroforn,
+		numendrforn,
+		cepforn,
+		cidadeforn,
+		ufforn
         }),
         credentials: "include"
       });
       const dados = await response.json();
   
       if(!response.ok) {
-        alert(dados.status);
+		const errorMessages = dados.errors ? dados.errors.map(err => err.msg).join('\n') : dados.error || dados.status;
+		alert(dados.status);
+      }else {
+            alert("Fornecedor gravado com sucesso!");
+            // Limpar os campos após o sucesso
+            Array.from(inputs).forEach(input => {
+                input.value = "";
+            });
       }
-      Array.from(inputs).forEach(input => {
-          input.value = "";
-      });
+    //  Array.from(inputs).forEach(input => {
+    //      input.value = "";
+    //  });
     } catch (error) {
-      console.error(error);
+	console.error(error);
+	alert("Erro na comunicação com o servidor.");
     }
 });
 

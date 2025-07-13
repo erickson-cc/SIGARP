@@ -25,7 +25,7 @@ app.use(
 	session({
 		secret: "your-secret-key",
 		resave: false,
-		saveUnintialized: false,
+		saveUninitialized: false,
 		cookie: { secure: true },
 	}),
 );
@@ -40,7 +40,7 @@ passport.use(
 	new LocalStrategy(
 		{
 			usernameField: "usuario",
-			passwordFiels:	"senha",
+			passwordField:	"senha",
 		},
 		async (usuario, senha, done) => {
 			try {
@@ -52,7 +52,7 @@ passport.use(
 					return done(null, false, { message : "Usuário Incorreto." });
 				}
 					const passwordMatch = await bcrypt.compare(
-						password,
+						senha,
 						user.user_password,
 					);
 
@@ -90,7 +90,7 @@ passport.use(
 					done(null, false);
 				}
 			}catch (error) {
-				done(error, fale);
+				done(error, false);
 			}
 		},
 	),
@@ -122,9 +122,10 @@ app.get("/login", (req, res) => {
 const requireJWTAuth = passport.authenticate("jwt", {session:false});
 app.get("/cadastro_demanda", requireJWTAuth, async (req, res) => {
 	try{
-		const clientes = await db.any("SELECT * FROM CLIENTES;");
-		console.log("Retornando todos os clientes.");
-		res.json(clientes).status(200);
+		// Comentei pois ficou com 2 res na mesma função
+		//const clientes = await db.any("SELECT * FROM CLIENTES;");
+		//console.log("Retornando todos os clientes.");
+		//res.json(clientes).status(200);
 		res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_demanda.html'));
 	} catch (error) {
 		console.log(error);
@@ -163,7 +164,118 @@ app.get("/cadastro_usuario", (req, res) => {
 app.get("/consulta_licitacoes", (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'consulta_licitacoes.html'));
 });
+app.post("/cadastro_fornecedor_rota",
+	[
+	//body('nomeforn').trim().isLength({ min: 3, max: 35 }).withMessage('Nome do fornecedor deve ter entre 3 e 35 caracteres.'),
+        //body('cnpjforn').trim().isLength({ min: 14, max: 18 }).withMessage('CNPJ inválido.').matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/).withMessage('Formato de CNPJ inválido (xx.xxx.xxx/xxxx-xx).'),
+        //body('nomerepr').trim().isLength({ min: 3, max: 35 }).withMessage('Nome do representante deve ter entre 3 e 35 caracteres.'),
+        //body('cpfrepr').trim().isLength({ min: 11, max: 14 }).withMessage('CPF inválido.').matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/).withMessage('Formato de CPF inválido (xxx.xxx.xxx-xx).'),
+        //body('idrepr').trim().notEmpty().withMessage('RG do representante não pode ser vazio.'),
+        //body('logradouroforn').trim().isLength({ min: 3, max: 35 }).withMessage('Logradouro deve ter entre 3 e 35 caracteres.'),
+        //body('bairroforn').trim().isLength({ min: 3, max: 20 }).withMessage('Bairro deve ter entre 3 e 20 caracteres.'),
+        //body('numendrforn').trim().isNumeric().withMessage('Número do endereço deve ser numérico.'),
+        //body('cepforn').trim().isLength({ min: 7, max: 9 }).withMessage('CEP inválido.').matches(/^\d{5}-?\d{3}$/).withMessage('Formato de CEP inválido (xxxxx-xxx ou xxxxxxx).'),
+        //body('cidadeforn').trim().isLength({ min: 3, max: 20 }).withMessage('Cidade deve ter entre 3 e 20 caracteres.'),
+        //body('ufforn').trim().isLength({ min: 2, max: 2 }).withMessage('UF deve ter 2 caracteres.').isAlpha().withMessage('UF deve conter apenas letras.'),
+    ],
+	async (req,res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+		    return res.status(400).json({ errors: errors.array() });
+        }
+        try {
+            const {
+                nomeforn,
+                cnpjforn,
+                nomerepr,
+                idrepr,
+                logradouroforn,
+                bairroforn,
+                numendrforn,
+                cepforn,
+                cidadeforn,
+                ufforn,
+                representante_ref
+            } = req.body;
 
+
+            try {
+                await db.none(
+                    "INSERT INTO representante (cpfrepr, idrepr, nomerepr) VALUES ($1, $2, $3) ON CONFLICT (cpfrepr) DO UPDATE SET nomerepr = EXCLUDED.nomerepr, idrepr = EXCLUDED.idrepr;",
+                    [cpfrepr, idrepr, nomerepr]
+                    //[cpf_representante_fornecedor, nome_representante_fornecedor, rg_representante_fornecedor]
+                );
+            } catch (repError) {
+                console.error("Erro ao inserir/atualizar representante:", repError);
+            }
+	const Inserir_no_banco_fornecedor = await db.one(
+                "INSERT INTO fornecedor (cnpjforn, nomeforn, ufforn, cepforn, cidadeforn, bairroforn, numendrforn, logradouroforn, representante_ref) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING cnpjforn, nomeforn",
+                [
+                    cnpjforn,
+                    nomeforn,
+                    ufforn,
+                    cepforn,
+                    cidadeforn,
+                    bairroforn,
+                    numendrforn,
+                    logradouroforn,
+                    cpfrepr // Referência ao CPF do representante
+                ]
+            );
+	    console.log(`Fornecedor criado: CNPJ ${Inserir_no_banco_fornecedor.cnpjforn}`);
+            res.status(201).json(Inserir_no_banco_fornecedor);
+        } catch (error) {
+            console.log(error);
+            if (error.code === '23505') { // unique_violation
+                return res.status(409).json({ error: 'Já existe um fornecedor com este CNPJ.' });
+            }
+            res.status(400).json({ error: error.message });
+        }
+    }
+);
+
+
+
+
+
+
+app.post("/cadastro_item_rota", 
+	[
+		body('nuc')
+			.trim()
+			.isNumeric()
+			.isInt({ gt: 0}),
+		body('nomeitem')
+			.trim()
+			.not().isNumeric().withMessage("O nome não pode ser um número."),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			// Se houver erros, retorna o status 400 com a lista de erros.
+			return res.status(400).json({ errors: errors.array() });
+}
+  try {
+		const nuc = req.body.nuc;
+		const nomeitem = req.body.nomeitem;
+
+    const Inserir_no_banco_item = await db.one(
+      "INSERT INTO item (nuc, nomeitem) VALUES ($1, $2) RETURNING nuc, nomeitem",
+      [nuc, nomeitem]
+    );
+
+    console.log(`Item criado: NUC ${Inserir_no_banco_item.nuc}`);
+    res.status(201).json(Inserir_no_banco_item);
+  } catch (error) {
+    console.log(error);
+            if (error.code === '23505') { // Código padrão do PostgreSQL para 'unique_violation'
+                return res.status(409).json({ error: 'Já existe um item com este NUC.' });
+            }
+
+    res.status(400).json({ error: error.message });
+  }	
+}
+);
 app.post("/cadastro_licitacao_rota", 
 	[
 	//  O campo 'ano_licitacao' que vem no corpo da requisição.

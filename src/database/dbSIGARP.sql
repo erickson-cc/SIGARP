@@ -40,12 +40,14 @@ CREATE TABLE IF NOT EXISTS usuario (-- Usuário de acesso ao sistema
     id integer not null,
     nome_completo varchar(60) not null,
     funcao varchar(60) not null check (funcao in ('Administrador', 'Licitação', 'Solicitante')),
-	fk_codusrlic_user varchar(5) null, -- Vai apontar para um tipo de usuário dependendo da funcao
-	fk_codusrlct_user varchar(5) null,
+	codusrlct_user varchar(5) null, -- Vai apontar para um tipo de usuário dependendo da funcao
+	codusrslc_user varchar(5) null,
     email varchar(255)  not null,
     senha text not null,
 	constraint pk_usuario primary key (id),
-	constraint uk_usuario unique (email)
+	constraint uk_usuario unique (email),
+	constraint fk_codusrlct_user foreign key (codusrlct_user) references user_lct(codusrlic),
+	constraint codusrslc foreign key (codusrslc_user) references user_slc(codusrslc)
 
 );
 CREATE TABLE IF NOT EXISTS item (
@@ -176,7 +178,7 @@ CREATE TABLE IF NOT EXISTS pedido_item (
 CREATE TABLE IF NOT EXISTS representante (
 	cpfrepr varchar(14) not null,
 	idrepr integer not null,
-	nome varchar(35) not null,
+	nomerepr varchar(35) not null,
 	constraint pk_cpfrepr primary key (cpfrepr)
 
 );
