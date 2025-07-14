@@ -177,6 +177,21 @@ app.get("/cadastro_demanda", isAuthenticated, async (req, res) => {
 	}
 });
 
+app.get("/consulta_licitacoes_rota", isAuthenticated, async (req, res) => {
+	console.log("/consulta_licita_rota"); // Remover
+    try {
+        const licitacoes = await db.any("SELECT numerolic, anolic, descrlic FROM licitacao ORDER BY anolic DESC, numerolic DESC;");
+	console.log("Licitações buscadas do DB:", licitacoes);// Remover 
+
+        res.status(200).json(licitacoes);
+    } catch (error) {
+        console.error("Erro ao buscar licitações:", error);
+        res.status(500).json({ message: "Erro interno do servidor ao buscar licitações." });
+    }
+});
+app.get("/editar_licitacao", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'editar_licitacao.html'));
+});
 app.get("/cadastro_fornecedor", isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_fornecedor.html'));
 });
@@ -443,7 +458,30 @@ app.put("/cliente", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+app.delete("/crud/licitacoes/:numerolic/:anolic", isAuthenticated, async (req, res) => {
+    try {
+        const numerolic = parseInt(req.params.numerolic);
+        const anolic = parseInt(req.params.anolic);
 
+	    // Validação para consultra usando ano e numero
+        if (isNaN(numerolic) || isNaN(anolic)) {
+            return res.status(400).json({ message: "Número ou ano da licitação inválidos para exclusão." });
+        }
+
+        // Executa a exclusão no banco de dados usando a ano e numero
+        const result = await db.result("DELETE FROM licitacao WHERE numerolic = $1 AND anolic = $2;", [numerolic, anolic]);
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "Licitação não encontrada." });
+        }
+
+        console.log(`Licitação Número: ${numerolic}, Ano: ${anolic} removida com sucesso.`);
+        res.status(204).send();
+    } catch (error) {
+        console.error("Erro ao deletar licitação:", error);
+        res.status(500).json({ message: "Erro interno do servidor ao deletar licitação." });
+    }
+});
 app.delete("/cliente", async (req, res) => {
   try {
     const id = req.body.id;

@@ -4,10 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuário</title>
+    <title>Consulta de Licitações</title>
     <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Estilos básicos para a tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-acao {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .btn-editar {
+            background-color: #007bff; /* Azul */
+        }
+
+        .btn-remover {
+            background-color: #dc3545; /* Vermelho */
+        }
+    </style>
 </head>
 
 <body>
@@ -25,12 +59,11 @@
                     <ul>
                         <!-- Lista de opções do menu -->
                         <li> <a href="http://localhost:3000/cadastro_unidade"><i class='bx bx-home icone_input'></i>Cadastrar Unidade </a></li>
-                        <li> <a href="http://localhost:3000/cadastro_usuario"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_usuario"><i class='bx bxs-user icone_input'></i>Cadastrar Usuário </a></li>
                         <li> <a href="http://localhost:3000/cadastro_item"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
                         <li> <a href="http://localhost:3000/cadastro_fornecedor"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
                         <li> <a href="http://localhost:3000/cadastro_licitacao"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
-                        <!--<li> <a href="#"><i class='bx bx-cart icone_input'></i>Cadastrar Pedidos </a></li>
-                        <li> <a href="#"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>-->
+                        <li> <a href="http://localhost:3000/consulta_licitacoes"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
 
                     </ul>
                 </nav>
@@ -44,66 +77,49 @@
             <!-- Popup de confirmação para logout -->
             <div id="popup" class="popup">
                 <p>Deseja sair?</p>
-                <button class="btn cancelar" onclick="logout()">Sair</button>
-                <button class="btn " onclick="closePopup()">Cancelar</button>
+                <button class="btn sair" onclick="logout()">Sair</button>
+                <button class="btn cancelar" onclick="closePopup()">Cancelar</button>
             </div>
 
         </aside>
 
-
-
-        <!--method = post, vai enviar os dados, action = "/cadastrar-usuario" para onde os dados vao ser enviados-->
         <section>
-            <!-- Formulário para cadastro de usuário -->
-            <form class="form_cadastro" method="POST" action="/cadastrar-usuario">
+            <form class="form_cadastro" id="form_consulta_licitacoes">
                 <h2>CONSULTAR LICITAÇÕES</h2>
-                <!-- Linha com campos de entrada agrupados -->
                 <div class="linha-campos">
                     <div class="input">
-                        <label for="barra_de_consulta">Pesquisa</label>
-                        <input type="text" id="barra_de_consulta" name="barra_de_consulta" required>
+                        <label for="barra_de_consulta">Pesquisa:</label>
+                        <input type="text" id="barra_de_consulta" name="barra_de_consulta" placeholder="Pesquisar por número, ano ou descrição">
                     </div>
+                     <div class="input">
+                        <button type="submit" class="btn">PESQUISAR</button>
+                    </div>
+                </div>
 
-                    <div class="input">
-                        <label for="funcao_usuario">Função:</label>
-                        <select id="funcao_usuario" name="funcao_usuario" required>
-                            <!-- Dropdown obrigatório para seleção da função -->
-                            <option value="" disabled selected>Selecione</option>
-                            <option value="Administrador">Administrador</option>
-                            <option value="Licitação">Licitação</option>
-                            <option value="Solicitante">Solicitante</option>
-                        </select>
-                    </div>
-
-                    <div class="input">
-                        <label for="unidade_usuario">Unidade:</label>
-                        <input type="text" id="unidade_usuario" name="unidade_usuario" required>
-                    </div>
-                </div>
-                <!-- linha de campos -->
-                <div class="linha-campos">
-                    <div class="input">
-                        <label for="email_usuario">Email:</label>
-                        <input type="email" id="email_usuario" name="email_usuario" required>
-                    </div>
-                    <div class="input">
-                        <label for="senha_usuario">Senha Padrão:</label>
-                        <input type="password" id="senha_usuario" name="senha_usuario" value="senha123" readonly />
-                        <i class='bx bxs-show' id="toggleSenha"></i>
-                    </div>
-                </div>
-                <!-- Linha com botões -->
-                <div class="linha-campos">
-                    <button type="button" class="btn cancelar">CANCELAR</button>
-                    <button type="submit" class="btn">GRAVAR</button>
-                </div>
+                <table>
+                    <thead>
+			<tr style="color:black;" >
+                            <th>Número</th>
+                            <th>Ano</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela_licitacoes_corpo">
+                        <!-- As licitações serão carregadas aqui via JavaScript -->
+                    </tbody>
+                </table>
             </form>
         </section>
 
     </div>
 
-    <script src="../js/script_cadastro_usuario.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/script_consulta_licitacoes.js"></script>
+    <script src="../js/script_menu_popup.js"></script> <!-- Se você tiver um script para o menu e popup -->
 
 </body>
 
 </html>
+

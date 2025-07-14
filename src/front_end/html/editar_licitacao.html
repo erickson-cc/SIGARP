@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Licitação</title>
+    <link href="../css/style_cadastro_usuario.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="container_menu">
+        <aside class="menu_lateral">
+            <h2> <button id="toggle_menu" class="botao_menu">
+                    <i class='bx bx-menu'></i>
+                </button>MENU</h2>
+            <div>
+                <nav>
+                    <ul>
+                        <li> <a href="http://localhost:3000/cadastro_unidade"><i class='bx bx-home icone_input'></i>Cadastrar Unidade </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_usuario"><i class='bx bxs-user icone_input'></i>Cadastrar Usuario </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_item"><i class='bx bx-box icone_input'></i>Cadastrar Item </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_fornecedor"><i class='bx bxs-contact icone_input'></i>Cadastrar Fornecedor </a></li>
+                        <li> <a href="http://localhost:3000/cadastro_licitacao"><i class='bx bx-bar-chart-alt-2 icone_input'></i>Cadastrar Licitação </a></li>
+                        <li> <a href="http://localhost:3000/consulta_licitacoes"><i class='bx bx-search icone_input'></i>Consultar Licitações </a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="usuario_menu">
+                <i class='bx bxs-user-circle'></i>
+                <span>Nome do Usuário</span>
+            </div>
+            <div id="popup" class="popup">
+                <p>Deseja sair?</p>
+                <button class="btn sair" onclick="logout()">Sair</button>
+                <button class="btn " onclick="closePopup()">Cancelar</button>
+            </div>
+        </aside>
+
+        <section>
+            <form class="form_cadastro" id="form_editar_licitacao">
+                <h2>EDITAR LICITAÇÃO</h2>
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="edit_num_licitacao">Número da Licitação:</label>
+                        <input type="text" id="edit_num_licitacao" name="numerolic" class="input-curto" readonly>
+                    </div>
+                    <div class="input">
+                        <label for="edit_ano_licitacao">Ano:</label>
+                        <input type="text" id="edit_ano_licitacao" name="anolic" class="input-curto" readonly>
+                    </div>
+                </div>
+                <div class="linha-campos">
+                    <div class="input">
+                        <label for="edit_descricao_licitacao">Descrição da Licitação:</label>
+                        <input type="text" id="edit_descricao_licitacao" name="descrlic" required>
+                    </div>
+                </div>
+                <div class="linha-campos">
+                    <button type="button" class="btn cancelar" onclick="window.history.back()">CANCELAR</button>
+                    <button type="submit" class="btn btn-gravar" id="btn_salvar_edicao">SALVAR ALTERAÇÕES</button>
+                </div>
+            </form>
+        </section>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/script_editar_licitacao.js"></script>
+</body>
+
+</html>
+
