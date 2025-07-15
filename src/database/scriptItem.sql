@@ -1,0 +1,10 @@
+INSERT INTO item (nuc, nomeitem) values('339-003-0091', 'Cimento');
+INSERT INTO item (nuc, nomeitem) values('339-003-0092', 'Barra de ferro');
+INSERT INTO item (nuc, nomeitem) values('401-001-0043', 'Capacete de Proteção');
+INSERT INTO item (nuc, nomeitem) values('421-231-0049', 'Lâmpada Fosforescente 12W');
+INSERT INTO item (nuc, nomeitem) values('421-231-0012', 'Lâmpada LED 12x12');
+INSERT INTO item (nuc, nomeitem) values('104-999-0012', 'Pneu Aro 12');
+INSERT INTO item (nuc, nomeitem) values('104-999-0013', 'Pneu Aro 13');
+INSERT INTO item (nuc, nomeitem) values('104-999-0014', 'Pneu Aro 14');
+INSERT INTO item (nuc, nomeitem) values('104-999-0200', 'Pneu para trator');
+INSERT INTO item (nuc, nomeitem) values('230-920-2222', 'Teclado para Computadores');

@@ -1,0 +1,11 @@
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('000.000.000-01', 111111, 'José João');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('111.111.111-11', 222222, 'Maria Silva');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('222.222.222-22', 333333, 'Carlos Pereira');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('333.333.333-33', 444444, 'Ana Souza');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('444.444.444-44', 555555, 'Pedro Almeida');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('555.555.555-55', 666666, 'Laura Costa');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('666.666.666-66', 777777, 'Fernando Santos');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('777.777.777-77', 888888, 'Sofia Oliveira');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('888.888.888-88', 999999, 'Rafaela Martins');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('999.999.999-99', 101010, 'Bruno Lima');
+INSERT INTO representante (cpfrepr, idrepr, nomerepr) values ('100.100.100-00', 121212, 'Camila Rocha');

@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS usuario (-- Usuário de acesso ao sistema
 );
 CREATE TABLE IF NOT EXISTS item (
 	nuc varchar(12) not null,
-	nomeitem varchar not null,
+	nomeitem text not null,
 	constraint pk_item primary key (nuc)
 
 );

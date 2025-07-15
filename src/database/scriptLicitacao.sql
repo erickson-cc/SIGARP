@@ -1,0 +1,10 @@
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (1, 2025, 'Materiais de Construção');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (2, 2025, 'Materiais Escolares');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (3, 2025, 'Equipamentos de Proteção');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (4, 2025, 'Produtos de Limpeza');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (5, 2025, 'Alimentos');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (6, 2025, 'Equipamentos de Informática');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (7, 2025, 'Lâmpadas');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (8, 2025, 'Uniformes');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (98, 2024, 'Cimento');
+INSERT INTO licitacao (numerolic, anolic, descrlic) values (99, 2024, 'Pneus');
