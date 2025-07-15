@@ -53,13 +53,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // Preencher os campos de NUC e Ano (somente leitura)
     document.getElementById('edit_num_licitacao').value = numerolic;
     document.getElementById('edit_ano_licitacao').value = anolic;
 
     // Buscar os dados da licitação para preencher o formulário
     try {
-        const response = await fetch(`http://localhost:3000/api/licitacoes/${numerolic}/${anolic}`, {
+        const response = await fetch(`http://localhost:3000/crud/licitacoes/${numerolic}/${anolic}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -68,8 +67,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            alert(`Erro ao carregar dados da licitação: ${errorData.message || response.statusText}`);
+            const errorData = await response.json().catch(() => ({ message: response.statusText }));
+            alert(`Erro ao carregar dados da licitação: ${errorData.message}`);
             window.history.back();
             return;
         }
@@ -90,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const novaDescricao = document.getElementById('edit_descricao_licitacao').value;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/licitacoes/${numerolic}/${anolic}`, {
+            const response = await fetch(`http://localhost:3000/crud/licitacoes/${numerolic}/${anolic}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -103,8 +102,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 alert("Licitação atualizada com sucesso!");
                 window.location.href = 'http://localhost:3000/consulta_licitacoes'; // Redireciona de volta para a consulta
             } else {
-                const errorData = await response.json();
-                const errorMessages = errorData.errors ? errorData.errors.map(err => err.msg).join('\n') : errorData.message || response.statusText;
+                const errorData = await response.json().catch(() => ({ message: response.statusText }));
+                const errorMessages = errorData.errors ? errorData.errors.map(err => err.msg).join('\n') : errorData.message;
                 alert(`Erro ao atualizar licitação:\n${errorMessages}`);
             }
         } catch (error) {

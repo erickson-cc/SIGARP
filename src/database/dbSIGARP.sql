@@ -211,4 +211,4 @@ CREATE TABLE IF NOT EXISTS fornece_item (
 
 );
 
-INSERT INTO usuario (id, nome_completo, funcao, codusrlct_user, codusrslc_user, email, senha) values (1, 'Admin', 'Administrador', null, null, 'admin@admin.com', '$2a$12$jdGM7XVeDa3ijOAP4a0BiOGEjTmj79mRDihdOVtk2wScQZmb44YUK');--Senha admin
+--INSERT INTO usuario (id, nome_completo, funcao, codusrlct_user, codusrslc_user, email, senha) values (1, 'Admin', 'Administrador', null, null, 'admin@admin.com', '$2a$12$jdGM7XVeDa3ijOAP4a0BiOGEjTmj79mRDihdOVtk2wScQZmb44YUK');--Senha admin

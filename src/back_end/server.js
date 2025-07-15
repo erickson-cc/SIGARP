@@ -15,12 +15,6 @@ const LocalStrategy = require("passport-local");
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 
-
-
-
-
-
-
 app.use(
 	session({
 		secret: "your-secret-key",
@@ -29,7 +23,6 @@ app.use(
 		cookie: { secure: false },// true (cookies)
 	}),
 );
-
 
 app.use(express.json());
 app.use(passport.initialize());
@@ -92,8 +85,6 @@ passport.use(
 		async (payload, done) => {
 			try{
 				const usuario = await db.oneOrNone(
-					//"SELECT * FROM users WHERE user_id = $1;",
-					//[payload.username],// ou usuario
 					"SELECT * FROM usuario WHERE id = $1;",
 					[payload.id],// ou usuario
 				);
@@ -125,8 +116,6 @@ passport.deserializeUser(function (user, cb) {
 	});
 });
 
-
-
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Servidor está rodando na porta ${PORT}.`));
 
@@ -141,35 +130,26 @@ app.post("/user/login", (req, res, next) => {
             return res.status(500).json({ status: "Erro interno do servidor." });
         }
         if (!user) {
-            // Autenticação falhou
             return res.status(401).json({ status: info.message || "E-mail ou senha incorretos." });
         }
-        // Autenticação bem-sucedida, logar o usuário na sessão
         req.logIn(user, (err) => {
             if (err) {
                 console.error("Erro ao logar usuário:", err);
                 return res.status(500).json({ status: "Erro ao estabelecer sessão." });
             }
-            // Redirecionar para a página de cadastro de licitação
-            return res.status(200).json({ status: "Login bem-sucedido!", redirectUrl: "/cadastro_licitacao" });// aqui tá o window.location.ref do script_login.js
+            return res.status(200).json({ status: "Login bem-sucedido!", redirectUrl: "/cadastro_licitacao" });
         });
     })(req, res, next);
 });
 
-const requireJWTAuth = passport.authenticate("jwt", {session:false});//descartável
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        return next(); // Usuário autenticado, continua para a próxima rota
+        return next();
     }
-    // Se não estiver autenticado, redireciona para a página de login
     res.redirect('/login');
 }
 app.get("/cadastro_demanda", isAuthenticated, async (req, res) => {
 	try{
-		// Comentei pois ficou com 2 res na mesma função
-		//const clientes = await db.any("SELECT * FROM CLIENTES;");
-		//console.log("Retornando todos os clientes.");
-		//res.json(clientes).status(200);
 		res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'cadastro_demanda.html'));
 	} catch (error) {
 		console.log(error);
@@ -178,11 +158,8 @@ app.get("/cadastro_demanda", isAuthenticated, async (req, res) => {
 });
 
 app.get("/consulta_licitacoes_rota", isAuthenticated, async (req, res) => {
-	console.log("/consulta_licita_rota"); // Remover
     try {
         const licitacoes = await db.any("SELECT numerolic, anolic, descrlic FROM licitacao ORDER BY anolic DESC, numerolic DESC;");
-	console.log("Licitações buscadas do DB:", licitacoes);// Remover 
-
         res.status(200).json(licitacoes);
     } catch (error) {
         console.error("Erro ao buscar licitações:", error);
@@ -223,19 +200,107 @@ app.get("/cadastro_usuario",  isAuthenticated, async (req, res) => {
 app.get("/consulta_licitacoes",  isAuthenticated, async (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'front_end', 'html', 'consulta_licitacoes.html'));
 });
+
+
+// Rota GET para buscar uma única licitação por numerolic e anolic
+// usar /crud/licitacoes/+numero/+ano
+app.get("/crud/licitacoes/:numerolic/:anolic", isAuthenticated, async (req, res) => {
+    try {
+        const numerolic = parseInt(req.params.numerolic);
+        const anolic = parseInt(req.params.anolic);
+
+        if (isNaN(numerolic) || isNaN(anolic)) {
+            return res.status(400).json({ message: "Número ou ano da licitação inválidos." });
+        }
+
+        const licitacao = await db.oneOrNone(
+            "SELECT numerolic, anolic, descrlic FROM licitacao WHERE numerolic = $1 AND anolic = $2;",
+            [numerolic, anolic]
+        );
+
+        if (!licitacao) {
+            return res.status(404).json({ message: "Licitação não encontrada." });
+        }
+
+        res.status(200).json(licitacao);
+    } catch (error) {
+        console.error("Erro ao buscar licitação por numerolic/anolic:", error);
+        res.status(500).json({ message: "Erro interno do servidor ao buscar licitação." });
+    }
+});
+
+// Rota PUT para atualizar uma licitação por numerolic e anolic
+app.put("/crud/licitacoes/:numerolic/:anolic", isAuthenticated,
+    [
+        body('descrlic')
+            .trim()
+            .isLength({ min: 5, max: 255 })
+            .withMessage('A descrição da licitação deve ter entre 5 e 255 caracteres.'),
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const numerolic = parseInt(req.params.numerolic);
+            const anolic = parseInt(req.params.anolic);
+            const { descrlic } = req.body;
+
+            if (isNaN(numerolic) || isNaN(anolic)) {
+                return res.status(400).json({ message: "Número ou ano da licitação inválidos para atualização." });
+            }
+
+            const result = await db.result(
+                "UPDATE licitacao SET descrlic = $3 WHERE numerolic = $1 AND anolic = $2;",
+                [numerolic, anolic, descrlic]
+            );
+
+            if (result.rowCount === 0) {
+                return res.status(404).json({ message: "Licitação não encontrada para atualização." });
+            }
+
+            console.log(`Licitação Número: ${numerolic}, Ano: ${anolic} atualizada com sucesso.`);
+            res.status(200).json({ message: "Licitação atualizada com sucesso." });
+        } catch (error) {
+            console.error("Erro ao atualizar licitação:", error);
+            res.status(500).json({ message: "Erro interno do servidor ao atualizar licitação." });
+        }
+    }
+);
+
+// Rota delete
+app.delete("/crud/licitacoes/:numerolic/:anolic", isAuthenticated, async (req, res) => {
+    try {
+        const numerolic = parseInt(req.params.numerolic);
+        const anolic = parseInt(req.params.anolic);
+
+	    // Validação para consulta usando ano e numero
+        if (isNaN(numerolic) || isNaN(anolic)) {
+            return res.status(400).json({ message: "Número ou ano da licitação inválidos para exclusão." });
+        }
+
+        // Executa a exclusão no banco de dados usando a ano e numero
+        const result = await db.result("DELETE FROM licitacao WHERE numerolic = $1 AND anolic = $2;", [numerolic, anolic]);
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "Licitação não encontrada." });
+        }
+
+        console.log(`Licitação Número: ${numerolic}, Ano: ${anolic} removida com sucesso.`);
+        res.status(204).send();
+    } catch (error) {
+        console.error("Erro ao deletar licitação:", error);
+        res.status(500).json({ message: "Erro interno do servidor ao deletar licitação." });
+    }
+});
+
+
 app.post("/cadastro_fornecedor_rota",
 	[
-	//body('nomeforn').trim().isLength({ min: 3, max: 35 }).withMessage('Nome do fornecedor deve ter entre 3 e 35 caracteres.'),
-        //body('cnpjforn').trim().isLength({ min: 14, max: 18 }).withMessage('CNPJ inválido.').matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/).withMessage('Formato de CNPJ inválido (xx.xxx.xxx/xxxx-xx).'),
-        //body('nomerepr').trim().isLength({ min: 3, max: 35 }).withMessage('Nome do representante deve ter entre 3 e 35 caracteres.'),
-        //body('cpfrepr').trim().isLength({ min: 11, max: 14 }).withMessage('CPF inválido.').matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/).withMessage('Formato de CPF inválido (xxx.xxx.xxx-xx).'),
-        //body('idrepr').trim().notEmpty().withMessage('RG do representante não pode ser vazio.'),
-        //body('logradouroforn').trim().isLength({ min: 3, max: 35 }).withMessage('Logradouro deve ter entre 3 e 35 caracteres.'),
-        //body('bairroforn').trim().isLength({ min: 3, max: 20 }).withMessage('Bairro deve ter entre 3 e 20 caracteres.'),
-        //body('numendrforn').trim().isNumeric().withMessage('Número do endereço deve ser numérico.'),
-        //body('cepforn').trim().isLength({ min: 7, max: 9 }).withMessage('CEP inválido.').matches(/^\d{5}-?\d{3}$/).withMessage('Formato de CEP inválido (xxxxx-xxx ou xxxxxxx).'),
-        //body('cidadeforn').trim().isLength({ min: 3, max: 20 }).withMessage('Cidade deve ter entre 3 e 20 caracteres.'),
-        //body('ufforn').trim().isLength({ min: 2, max: 2 }).withMessage('UF deve ter 2 caracteres.').isAlpha().withMessage('UF deve conter apenas letras.'),
+	body('nomeforn').trim().isLength({ min: 3, max: 35 }).withMessage('Nome do fornecedor deve ter entre 3 e 35 caracteres.'),
+        body('nomerepr').trim().isLength({ min: 3, max: 35 }).withMessage('Nome do representante deve ter entre 3 e 35 caracteres.'),
     ],
 	async (req,res) => {
 		const errors = validationResult(req);
@@ -255,7 +320,6 @@ app.post("/cadastro_fornecedor_rota",
                 cepforn,
                 cidadeforn,
                 ufforn
-                //representante_ref
             } = req.body;
 
 
@@ -263,7 +327,6 @@ app.post("/cadastro_fornecedor_rota",
                 await db.none(
                     "INSERT INTO representante (cpfrepr, idrepr, nomerepr) VALUES ($1, $2, $3) ON CONFLICT (cpfrepr) DO UPDATE SET nomerepr = EXCLUDED.nomerepr, idrepr = EXCLUDED.idrepr;",
                     [cpfrepr, idrepr, nomerepr]
-                    //[cpf_representante_fornecedor, nome_representante_fornecedor, rg_representante_fornecedor]
                 );
             } catch (repError) {
                 console.error("Erro ao inserir/atualizar representante:", repError);
@@ -279,25 +342,20 @@ app.post("/cadastro_fornecedor_rota",
                     bairroforn,
                     numendrforn,
                     logradouroforn,
-                    cpfrepr // Referência ao CPF do representante
+                    cpfrepr
                 ]
             );
 	    console.log(`Fornecedor criado: CNPJ ${Inserir_no_banco_fornecedor.cnpjforn}`);
             res.status(201).json(Inserir_no_banco_fornecedor);
         } catch (error) {
             console.log(error);
-            if (error.code === '23505') { // unique_violation
+            if (error.code === '23505') {
                 return res.status(409).json({ error: 'Já existe um fornecedor com este CNPJ.' });
             }
             res.status(400).json({ error: error.message });
         }
     }
 );
-
-
-
-
-
 
 app.post("/cadastro_item_rota", 
 	[
@@ -312,7 +370,6 @@ app.post("/cadastro_item_rota",
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			// Se houver erros, retorna o status 400 com a lista de erros.
 			return res.status(400).json({ errors: errors.array() });
 }
   try {
@@ -328,7 +385,7 @@ app.post("/cadastro_item_rota",
     res.status(201).json(Inserir_no_banco_item);
   } catch (error) {
     console.log(error);
-            if (error.code === '23505') { // Código padrão do PostgreSQL para 'unique_violation'
+            if (error.code === '23505') {
                 return res.status(409).json({ error: 'Já existe um item com este NUC.' });
             }
 
@@ -340,22 +397,21 @@ app.post("/cadastro_licitacao_rota",
 	[
 	//  O campo 'ano_licitacao' que vem no corpo da requisição.
         body('ano_licitacao')
-            .trim() // Remove espaços em branco do início e do fim.
-            .isLength({ min: 4, max: 4 }) // Garante que o comprimento seja exatamente 4.
-            .withMessage('O ano da licitação deve ter exatamente 4 caracteres.') // Mensagem de erro se a validação falhar.
-            .isNumeric() // Garante que o valor contém apenas números.
+            .trim()
+            .isLength({ min: 4, max: 4 })
+            .withMessage('O ano da licitação deve ter exatamente 4 caracteres.')
+            .isNumeric()
             .withMessage('O ano deve ser um valor numérico.'),
 
         //  O campo 'num_licitacao'.
         body('num_licitacao')
-            .isInt({ lt: 1000 }) // Verifica se é um número inteiro e se é 'less than' (menor que) 1000.
+            .isInt({ lt: 1000 })
             .withMessage('O número da licitação deve ser um número inteiro menor que 1000.'),
 
     ]
 	, async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			// Se houver erros, retorna o status 400 com a lista de erros.
 			return res.status(400).json({ errors: errors.array() });
 }
   try {
@@ -372,7 +428,7 @@ app.post("/cadastro_licitacao_rota",
     res.status(201).json(Inserir_no_banco);
   } catch (error) {
     console.log(error);
-            if (error.code === '23505') { // Código padrão do PostgreSQL para 'unique_violation'
+            if (error.code === '23505') {
                 return res.status(409).json({ error: 'Já existe uma licitação com este número e ano.' });
             }
 
@@ -381,17 +437,9 @@ app.post("/cadastro_licitacao_rota",
 }
 );
 
-app.post("/login", function (req, res) {
-  const nome = req.body.nome;
-  res.send(`Hello, ${nome}!`);
-});
-
 app.get("/", (req, res) => {
-	// Redireciona para login
-	// Implementar algo para reconhecer se o usuário está autenticado
 	res.redirect("/login");
 });
-// A partir daqui é o template
 app.get("/clientes", async (req, res) => {
   try {
     const clientes = await db.any("SELECT * FROM clientes;");
@@ -457,30 +505,6 @@ app.put("/cliente", async (req, res) => {
     console.log(error);
     res.status(400).json({ error: error.message });
   }
-});
-app.delete("/crud/licitacoes/:numerolic/:anolic", isAuthenticated, async (req, res) => {
-    try {
-        const numerolic = parseInt(req.params.numerolic);
-        const anolic = parseInt(req.params.anolic);
-
-	    // Validação para consultra usando ano e numero
-        if (isNaN(numerolic) || isNaN(anolic)) {
-            return res.status(400).json({ message: "Número ou ano da licitação inválidos para exclusão." });
-        }
-
-        // Executa a exclusão no banco de dados usando a ano e numero
-        const result = await db.result("DELETE FROM licitacao WHERE numerolic = $1 AND anolic = $2;", [numerolic, anolic]);
-
-        if (result.rowCount === 0) {
-            return res.status(404).json({ message: "Licitação não encontrada." });
-        }
-
-        console.log(`Licitação Número: ${numerolic}, Ano: ${anolic} removida com sucesso.`);
-        res.status(204).send();
-    } catch (error) {
-        console.error("Erro ao deletar licitação:", error);
-        res.status(500).json({ message: "Erro interno do servidor ao deletar licitação." });
-    }
 });
 app.delete("/cliente", async (req, res) => {
   try {
