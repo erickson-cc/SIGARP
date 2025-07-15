@@ -1,4 +1,3 @@
-INSERT INTO licitacao_item (item_a, licita_nro, licita_ano) values ();
 INSERT INTO licitacao_item (item_a, licita_nro, licita_ano) values ('339-003-0091', 1, 2025); -- Cimento relacionado a Materiais de Construção
 INSERT INTO licitacao_item (item_a, licita_nro, licita_ano) values ('339-003-0092', 1, 2025); -- Barra de ferro relacionado a Materiais de Construção
 INSERT INTO licitacao_item (item_a, licita_nro, licita_ano) values ('401-001-0043', 3, 2025); -- Capacete de Proteção relacionado a Equipamentos de Proteção

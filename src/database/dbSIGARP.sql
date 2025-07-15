@@ -75,16 +75,6 @@ CREATE TABLE IF NOT EXISTS licitacao_item (
 );
 
 
-CREATE TABLE IF NOT EXISTS ata_item (
-	item_p varchar(12) not null,
-	ata_ref_i varchar(5) not null, -- Não sei por que o modelo lógico tá linkando com a licitação
-	--licita_nro integer not null,
-	--licita_ano integer not null,
-	constraint fk_item_p foreign key (item_p) references item(nuc),
-	--constraint fk_licita_a foreign key (licita_nro, licita_ano) references licitacao(numerolic, anolic)
-	constraint fk_ata_item foreign key (fk_item_p) references ata_rp(codarp)
-
-);
 
 
 CREATE TABLE IF NOT EXISTS demanda (
@@ -152,6 +142,18 @@ CREATE TABLE IF NOT EXISTS ata_rp (
 	constraint fk_licitacao_ref foreign key (licitacao_nro_ref, licitacao_ano_ref) references licitacao(numerolic, anolic)
 
 );
+
+CREATE TABLE IF NOT EXISTS ata_item (
+	item_p varchar(12) not null,
+	ata_ref_i varchar(5) not null, -- Não sei por que o modelo lógico tá linkando com a licitação
+	--licita_nro integer not null,
+	--licita_ano integer not null,
+	constraint fk_item_p foreign key (item_p) references item(nuc),
+	--constraint fk_licita_a foreign key (licita_nro, licita_ano) references licitacao(numerolic, anolic)
+	constraint fk_ata_item foreign key (ata_ref_i) references ata_rp(codarp)
+
+);
+
 CREATE TABLE IF NOT EXISTS pedido (
 	codped varchar(5) not null,
 	ata_ref varchar(5) not null,

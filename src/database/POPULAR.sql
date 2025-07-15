@@ -1,4 +1,4 @@
-\i dbSIGARP.sql
+--\i dbSIGARP.sql
 \i scriptLicitacao.sql
 \i scriptRepresentante.sql
 \i scriptFornecedor.sql

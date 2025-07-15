@@ -1,4 +1,3 @@
-INSERT INTO fornece_item (numeroitem, valorunitario, quantidadeitem, item_f_ref, fornecedor_f_ref) values ();
 INSERT INTO fornece_item (numeroitem, valorunitario, quantidadeitem, item_f_ref, fornecedor_f_ref) values (1, 50.75, 100, '339-003-0091', '00.000.000/0001-00');
 INSERT INTO fornece_item (numeroitem, valorunitario, quantidadeitem, item_f_ref, fornecedor_f_ref) values (2, 75.20, 50, '339-003-0092', '00.000.000/0001-00');
 INSERT INTO fornece_item (numeroitem, valorunitario, quantidadeitem, item_f_ref, fornecedor_f_ref) values (3, 25.00, 200, '401-001-0043', '00.000.000/0001-00');
