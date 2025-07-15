@@ -16,8 +16,9 @@ Table licitacao_item {
 }
 
 Table ata_item {
-  fk_licita_nro integer [ref: > licitacao.numerolic]
-  fk_licita_ano integer [ref: > licitacao.anolic]
+  //fk_licita_nro integer [ref: > licitacao.numerolic]
+  //fk_licita_ano integer [ref: > licitacao.anolic]
+  fk_ata_ref varchar(5) [ref: > ata_rp.codarp]
   fk_item_p varchar(12) [ref: > item.nuc]
 }
 
@@ -105,14 +106,19 @@ Table fornecedor {
   fk_representante varchar(14) [ref:> representante.cpfrepr]
   
 }
-Table fornece {
-  numeroitem integer //[pk]
-  valorunitario money
+Table fornece_item_licitacao {
+  codforn varchar(7) [pk]
+  numeroitem integer
+  valorunitario money 
   quantidadeitem integer
   descricaoitem text
+  fk_licitacao_numerolic_f integer [ref:> licitacao.numerolic]
+  fk_licitacao_anolic_f integer [ref:> licitacao.anolic]
   fk_item_f varchar(12) [ref:> item.nuc]
   fk_fornecedor_f varchar(18) [ref:> fornecedor.cnpjforn]
 }
+//Ref: licitacao.(anolic,numerolic) - fornece_item_licitacao.(fk_licitacao_numerolic_f, fk_licitacao_anolic_f)
+
 Table representante {
   cpfrepr varchar(14) [pk]
   idrepr integer
