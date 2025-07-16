@@ -203,13 +203,17 @@ CREATE TABLE IF NOT EXISTS fornecedor (
 
 );
 
-CREATE TABLE IF NOT EXISTS fornece_item (
+CREATE TABLE IF NOT EXISTS fornece_item_licitacao (
 	numeroitem integer not null,
 	valorunitario money not null,
 	quantidadeitem integer not null,
 	descricaoitem text null,
 	item_f_ref varchar(12) not null,
 	fornecedor_f_ref varchar(18) not null,
+	licitacao_f_ref_nro integer not null,
+	licitacao_f_ref_ano integer not null,
+	constraint pk_fornece_item_licitacao primary key (licitacao_f_ref_nro, licitacao_f_ref_ano, item_f_ref, fornecedor_f_ref),
+	constraint fk_licita_i foreign key (licitacao_f_ref_nro, licitacao_f_ref_ano) references licitacao(numerolic, anolic),
 	constraint fk_item_f foreign key (item_f_ref) references item(nuc),
 	constraint fk_fornecedor_f foreign key (fornecedor_f_ref) references fornecedor(cnpjforn)
 
