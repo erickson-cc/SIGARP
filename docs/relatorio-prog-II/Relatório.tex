@@ -14,15 +14,22 @@
 			\item \textbf{Backend:} Node.js com Express.
 			\item \textbf{Frontend:} HTML, CSS e Javascript.
 			\item \textbf{Banco de Dados:} PostgreSQL.
-			\item \textbf{Autenticação:}	
+			\item \textbf{Autenticação:} Passport.js
 		\end{itemize}
 	\section{Arquitetura e lógica de implementação}
 		A estrutura de repositórios dentro da pasta $/src/$ foi separada em $/back\_end/$, $/front\_end/$ e $/database/$. 
 		\subsection{Arquitetura Cliente-Servidor}
 			Em $/back\_end/$ estão os arquivos do servidor node iniciado com o yarn. A lógica do servidor está no arquivo \textit{server.js}, o servidor expõe endpoints RESTful API para manipulação dos dados com o banco de dados através do \textit{pg-promise}.
 			
-			No frontend, páginas em HTML são renderizadas pelo navegador
+			No $/front\_end/$, páginas em HTML são renderizadas pelo navegador usando a lógica interativa do Javascript e sendo estilizadas por CSS. Então existem 3 subpastas: $/html/$, $/css/$ e $/js/$.
+			
+			Em $/database/$ está o arquivo de criação do banco de dados $dbSIGARP.sql$, assim como outros arquivos de inserção de tuplas no banco. Para acessar o sistema, deve-se rodar o script do arquivo $dbCREATE-Admin.sql$ que cria o usuário administrador com seu devido login e senha.
+			
+			
 		\subsection{Criptografia e Autenticação}
+		Para autenticação, o módulo Passport trabalha em harmonia com o JSON Web Token. O bcrypt faz a comparação da senha inserida com a armazenada no banco de dados.
+		Function isAuthenticated
+
 	\section{Detalhamento de lógica por funcionalidade}
 	\section{Estrutura de banco de dados}
 	\section{Facilidades e dificuldades encontradas}
