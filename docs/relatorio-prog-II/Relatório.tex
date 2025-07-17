@@ -27,10 +27,12 @@
 			
 			
 		\subsection{Criptografia e Autenticação}
-		Para autenticação, o módulo Passport trabalha em harmonia com o JSON Web Token. O bcrypt faz a comparação da senha inserida com a armazenada no banco de dados.
-		Function isAuthenticated
+		Para autenticação, o módulo Passport trabalha em harmonia com o JSON Web Token. O bcrypt faz a comparação da senha inserida com a armazenada no banco de dados e a função isAuthenticated autoriza a rota.
 
 	\section{Detalhamento de lógica por funcionalidade}
+		Para a autenticação, o arquivo login.html coleta as credenciais do usuário, a requisição de login é enviada ao backend e este verifica as credenciais na tabela usuario do banco de dados, com a senha criptografada.
+		
+		Para o cadastro de novas licitações, o arquivo cadastro\_licitacao.html apresenta um formulário para que o usuário insira os dados, em seguida realiza as validações básicas no lado do cliente.
 	\section{Estrutura de banco de dados}
 	\section{Facilidades e dificuldades encontradas}
 		\section{Facilidades}
