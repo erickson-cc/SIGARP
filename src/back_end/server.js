@@ -4,8 +4,8 @@ const { body, validationResult } = require('express-validator');
 const pgp = require("pg-promise")({});
 const bcrypt = require("bcrypt");
 
-const usuario = "postgres";
-const senha = "postgres";
+const usuario = "sigarpuser";
+const senha = "sigarpuser";
 const db = pgp(`postgres://${usuario}:${senha}@localhost:5432/sigarp`);
 
 const app = express();

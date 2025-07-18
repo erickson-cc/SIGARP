@@ -1,6 +1,9 @@
+create user sigarpuser with password 'sigarpuser';
+create user sigarpadmin with password 'sigarpadmin';
+
 drop database sigarp;
-create database sigarp;
-\c sigarp;
+create database sigarp with owner sigarpadmin;
+\c "host=localhost user=sigarpadmin password=sigarpadmin dbname=sigarp"
 
 CREATE TABLE IF NOT EXISTS unidade (
 	codunid varchar(5) not null,
@@ -218,5 +221,7 @@ CREATE TABLE IF NOT EXISTS fornece_item_licitacao (
 	constraint fk_fornecedor_f foreign key (fornecedor_f_ref) references fornecedor(cnpjforn)
 
 );
+
+grant select, insert, update, delete on all tables in schema public to sigarpuser;
 
 --INSERT INTO usuario (id, nome_completo, funcao, codusrlct_user, codusrslc_user, email, senha) values (1, 'Admin', 'Administrador', null, null, 'admin@admin.com', '$2a$12$jdGM7XVeDa3ijOAP4a0BiOGEjTmj79mRDihdOVtk2wScQZmb44YUK');--Senha admin
