@@ -132,9 +132,9 @@ document.getElementById("form_consulta_licitacoes").addEventListener("submit", f
 });
 
 // Funções de placeholder para Editar e Remover
-function editarLicitacao(numerolic, anolic) {
-    alert(`Funcionalidade de Editar para a licitação Número: ${numerolic}, Ano: ${anolic} será implementada aqui.`);
-}
+//function editarLicitacao(numerolic, anolic) {
+    //alert(`Funcionalidade de Editar para a licitação Número: ${numerolic}, Ano: ${anolic} será implementada aqui.`);
+//}
 
 async function removerLicitacao(numerolic, anolic) {
 	if (confirm(`Tem certeza que deseja remover a licitação Número: ${numerolic}, Ano: ${anolic}?`)) {

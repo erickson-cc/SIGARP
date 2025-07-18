@@ -1,20 +1,24 @@
 \documentclass[ ]{article}
 \usepackage{indentfirst}
-\title{Relatório Trabalho Integrador}
+\title{Relatório Trabalho Integrador\\Sistema de Gerenciamento\\de Atas de Registro de Preços}
 \date{18 de Julho de 2025}
-\author{Aysha Thayná, Erickson Müller}
+\author{Aysha Thayná\\ Erickson Müller}
 \begin{document}
 	\maketitle
 	\newpage
 	\section{Visão geral do projeto}
+		O SIGARP - Sistema de Gerenciamento de Ata de Registros de Preços será utilizado pela Regional Oeste da Secretaria de Estado de Justiça e Reintegração Social para administrar o andamento de licitações e disponibilizar a consulta por diversos setores.
 	\section{Objetivos do sistema}
-		Manter um controle e histórico de licitações e 
+		Manter um controle e histórico de licitações, possibilitando o cadastro e atualização de itens, fornecedores, lances, pedidos e demandas. As diversas licitações em processo silmutâneo podem ser verificadas no sistema.
+		
+		O objetivo deste sistema não é substituir a rotina administrativa vigente, mas sim auxiliar na comunicação das situações de atas em diversos setores que estão espalhados em mais de 6 cidades.
+		
 	\section{Tecnologias utilizadas}
 		\begin{itemize}
-			\item \textbf{Backend:} Node.js com Express.
-			\item \textbf{Frontend:} HTML, CSS e Javascript.
+			\item \textbf{Backend:} Node.js com Express; Passport.js, bcrypt; pg-promise.
+			\item \textbf{Frontend:} HTML, CSS e Javascript; Axios, jQuery.
 			\item \textbf{Banco de Dados:} PostgreSQL.
-			\item \textbf{Autenticação:} Passport.js
+			%\item \textbf{Autenticação:} Passport.js, bcrypt.
 		\end{itemize}
 	\section{Arquitetura e lógica de implementação}
 		A estrutura de repositórios dentro da pasta $/src/$ foi separada em $/back\_end/$, $/front\_end/$ e $/database/$. 
@@ -27,17 +31,30 @@
 			
 			
 		\subsection{Criptografia e Autenticação}
-		Para autenticação, o módulo Passport trabalha em harmonia com o JSON Web Token. O bcrypt faz a comparação da senha inserida com a armazenada no banco de dados e a função isAuthenticated autoriza a rota.
+		Para autenticação, o módulo Passport trabalha em harmonia com o JSON Web Token. O bcrypt faz a comparação da senha inserida com a armazenada no banco de dados e a função isAuthenticated() autoriza a rota.
 
 	\section{Detalhamento de lógica por funcionalidade}
 		Para a autenticação, o arquivo login.html coleta as credenciais do usuário, a requisição de login é enviada ao backend e este verifica as credenciais na tabela usuario do banco de dados, com a senha criptografada.
 		
-		Para o cadastro de novas licitações, o arquivo cadastro\_licitacao.html apresenta um formulário para que o usuário insira os dados, em seguida realiza as validações básicas no lado do cliente.
-	\section{Estrutura de banco de dados}
+		Para o cadastro de novas licitações, itens, usuários, unidades, etc o arquivo de cadastro obedece ao padrão de nome cadastro\_xxxx.html e apresenta um formulário para que o usuário insira os dados.%, em seguida realiza as validações básicas no lado do cliente.
+		
+		O Javascript recebe essas informações pelo arquivo \texttt{script\_cadastro\_XXXX.js} através da biblioteca JQuery e chama uma função \texttt{createPost\_XXXX()} que, usando a bibliotaca Axios, manda os dados para o post no backend através do link \texttt{/cadastro\_XXXX\_rota}.
+		
+		O post fará a validação da requisição, em seguida insere a tupla no banco de acordo com os dados da rota. A situação de cada etapa do post pode ser analisada no terminal do servidor.
+		
+		Para consultar as licitações cadastradas, o arquivo \texttt{consulta\_licitacoes.html} exibe uma tabela e, ao carregar a página, um script \texttt{script\_consulta\_licitacoes.js} cria um array vazio faz uma requisição GET para o backend, via Axios. O backend consulta a tabela \texttt{licitacao} no banco de dados e retorna a lista de licitações em formato JSON. O Javascript do frontend, então, recebe esses dados e os renderiza na tabela da página usando a função renderizarLicitacoes().
+		
+		Cada linha dessa tabela possui um botão \textbf{editar} e \textbf{remover}.		 Dentro da função renderizarLicitacoes(), o click é reconhecido e enviado para as determinadas rotas. Ao clicar em \textbf{editar}, o sistema nos direciona para a página $/editar\_licitacao/$ com o número e ano da licitação a ser editada. Um processo similar ao de cadastro está presente nessa tela, o usuário poderá alterar a descrição da licitação e a alteração é efetuada pelo método PUT. Em seguida o usuário é redirecionado novamente para a tela de consulta de licitações.
+		
+		Ao clicar em remover, a função \textbf{removerLicitacao()} é invocada, um alert aparece na tela e o \textit{delete} é solicitado no backend com o ano e número da licitação. O método delete exclui a licitação do banco de dados.
+	%\section{Estrutura de banco de dados}
 	\section{Facilidades e dificuldades encontradas}
-		\section{Facilidades}
+		\subsection{Facilidades}
+			Neste projeto, usamos a stack ensinada em aula de Programação II, isso facilitou muito no início do projeto pois usamos o template do esqueleto de um sistema para fazer o CRUD e a autenticação/autorização.
 		\subsection{Dificuldades}
+			O modelo de banco de dados escolhido é grande e complexo, o que acaba exigindo um grande número de telas no sistema para fazer essa integração.
 	\section{Repositório do Github}
-	\section{Conclusão}
+	https://github.com/erickson-cc/SIGARP.git
+	%\section{Conclusão}
 	
 \end{document}
