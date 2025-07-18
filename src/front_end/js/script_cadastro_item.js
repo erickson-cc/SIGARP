@@ -1,11 +1,9 @@
-// Adiciona evento de clique no botão do menu (ícone de "hambúrguer")
 document.getElementById("toggle_menu").addEventListener("click", function () {
   const menu = document.querySelector(".menu_lateral"); // Seleciona o menu lateral
   const icone = this.querySelector("i");  // Seleciona o ícone dentro do botão
 
   menu.classList.toggle("reduzido");// Alterna a classe "reduzido" para abrir/fechar o menu
 
-  // Troca o ícone dependendo do estado do menu
   if (menu.classList.contains("reduzido")) {
     icone.classList.remove("bx-menu");
     icone.classList.add("bx-menu-alt-right"); // ícone diferente para indicar recolhido
@@ -14,15 +12,13 @@ document.getElementById("toggle_menu").addEventListener("click", function () {
     icone.classList.add("bx-menu");
   }
 });
-// Evento de clique no avatar do usuário (ícone com nome)
 document.querySelector(".usuario_menu").addEventListener("click", function (event) {
   let popup = document.getElementById("popup"); // Referência ao pop-up de logout
 
-  // Alterna entre abrir e fechar o pop-up
   if (popup.style.display === "block") {
-    closePopup();// Fecha o popup se já estiver aberto
+    closePopup();
   } else {
-    showPopup();// Abre o popup se estiver fechado
+    showPopup();
   }
 
   // Impede que o clique no usuário feche o pop-up imediatamente

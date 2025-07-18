@@ -376,9 +376,12 @@ app.post("/cadastro_fornecedor_rota",
 app.post("/cadastro_item_rota",
   [
     body('nuc')
-      .trim()
-      .isNumeric()
-      .isInt({ gt: 0 }),
+	.trim()
+	.matches(/^\d{3}-\d{3}-\d{4}$/)
+	.withMessage('O NUC deve estar no formato XXX-XXX-XXXX.'),
+      //.isNumeric().withMessage('Favor digitar apenas números.')
+      //.isLength({ min: 11, max: 11 }).withMessage('Deve ter exatamente 11 dígitos.')
+      //.isInt({ gt: 0 }),
     body('nomeitem')
       .trim()
       .not().isNumeric().withMessage("O nome não pode ser um número."),
