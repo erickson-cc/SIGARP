@@ -20,14 +20,18 @@ O código do sistema está estruturado da seguinte forma:
     - requisitos/
         - **Documento de Elicitação de Requistitos**
 - ./src/
-  - backend/ *Código backend*
-  - frontend/ *Código frontend*
+  - back_end/ *Código backend*
+      - node_modules/
+      - server.js
+  - front_end/ *Código frontend*
     - css/ *Código em CSS*
     - html/ *Código em HTML*
     - img/ *Repositório de Imagens*
     - js/ *Código em JavaScript*
   - database/ *Modelo Físico do Banco de Dados*
     - dbSIGARP.sql
+    - dbCREATE-Admin.sql
+    - POPULAR.sql
   - README.md *Descrição Repositório Github* 
 
 
@@ -40,3 +44,40 @@ A pasta _backend_ contém toda a lógica de negócios e a implementação do lad
 
 ### frontend/
 A pasta _frontend_ abriga todos os arquivos relacionados à interface do usuário (UI) e à experiência do usuário (UX) do sistema SIGARP. Abriga os códigos HTML que estruturam as páginas web, os estilos em CSS que definem a apresentação visual, os scripts em JavaScript que adicionam interatividade e dinamismo, e quaisquer assets como imagens e fontes utilizadas na interface. A organização interna desta pasta, como as subpastas _css_, _html_, _img_ e _js_ que você já definiu, visa manter o código do lado do cliente bem estruturado e fácil de manter, proporcionando uma experiência de uso fluida e intuitiva para os usuários do sistema.
+
+## Como executar o sistema
+- Pré-requisitos:
+    - Node.js
+    - npm
+    - nodemon
+    - PostgreSQL
+- Instalação:
+    - Abra o terminal na pasta *database/*
+    ```bash
+    cd src/database
+    ```
+    - Entre na interface do postgres:
+    ```bash
+    psql -h localhost -U postgres -d postgres
+    ```
+    - Crie o Banco de Dados SIGARP:
+    ```bash
+    \i dbSIGARP.sql
+    ```
+    - Crie o usuário Administrador através do script pré-programado:
+    ```bash
+    \i dbCREATE-Admin.sql
+    ```
+    - Abra o terminal na pasta *back_end/*
+    ```bash
+    cd ../back_end
+    ```
+    - Inicie o servidor
+    ```bash
+    nodemon server.js
+    ```
+- Acesso:
+  O servidor estará rodando na porta `http://localhost:3000`
+- Autenticação:
+    - login: admin@admin.com
+    - senha: admin
